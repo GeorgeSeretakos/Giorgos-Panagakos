@@ -1,4 +1,3 @@
-// app/book/studio/[slug]/availability/page.jsx
 import { prisma } from "@lib/prisma";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";

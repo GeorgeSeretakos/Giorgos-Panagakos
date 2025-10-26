@@ -7,7 +7,7 @@ const prisma = globalForPrisma.prisma || new PrismaClient();
 if (!globalForPrisma.prisma) globalForPrisma.prisma = prisma;
 
 const DEFAULT_RADIUS_KM =
-  Number(process.env.SEARCH_RADIUS_KM) > 0 ? Number(process.env.SEARCH_RADIUS_KM) : 25;
+  Number(process.env.SEARCH_RADIUS_KM) > 0 ? Number(process.env.SEARCH_RADIUS_KM) : 5;
 
 // --- Helpers ---
 function normalizeNumber(n, fallback = undefined) {
@@ -27,8 +27,8 @@ async function queryNearby({ lat, lng, radiusKm, limit }) {
           sin(radians(${lat})) * sin(radians(s.lat))
         )) AS distance_km
       FROM "Studio" s
-      WHERE s.lat IS NOT NULL AND s.lng IS NOT NULL
-    ) t
+      WHERE s.lat IS NOT NULL AND s.lng IS NOT NULL AND s."isActive" = true
+         ) t
     WHERE t.distance_km <= ${radiusKm}
     ORDER BY t.distance_km ASC
     LIMIT ${limit};
@@ -50,6 +50,8 @@ export async function POST(req) {
     }
 
     const radiusKm = Number.isFinite(qRadius) && qRadius > 0 ? qRadius : DEFAULT_RADIUS_KM;
+
+    console.log("RadiusKm: ", radiusKm);
 
     const items = await queryNearby({ lat, lng, radiusKm, limit });
 

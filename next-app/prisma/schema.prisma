@@ -40,6 +40,9 @@ model Studio {
   // ── NEW FIELDS ─────────────────────────────────────────
   booking_mode         BookingMode @default(CALENDAR_ONLY)
   external_contact_url String?
+  facebook             String? // NEW
+  instagram            String? // NEW
+  notes                String[]    @default([]) // NEW (array of paragraphs)
   // ───────────────────────────────────────────────────────
 }
 

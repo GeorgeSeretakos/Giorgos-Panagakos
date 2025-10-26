@@ -44,6 +44,9 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
     <IntroSection
       image={studio.photoUrls?.[0]}
       title={null}
+      hasDarkOverlay={false}
+      tallImage={true}
+      isStudioPage={true}
       paragraph={
         <div className="max-w-5xl mx-auto w-full">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

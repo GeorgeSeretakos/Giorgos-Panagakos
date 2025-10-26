@@ -48,7 +48,7 @@ export default function ResultsLayout({
           ) : (
             <div className="w-full h-full relative">
               <img
-                src="/images/general/map.png"
+                src="/logo/4.png"
                 alt={t.greeceLabel}
                 className="w-full h-full object-cover"
                 loading="eager"
@@ -73,8 +73,8 @@ export default function ResultsLayout({
         {/* Results list */}
         <section className="w-full flex-1 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 py-4">
-            {loading && <p className="px-2 py-2 text-sm text-gray-600">{t.loading}</p>}
-            {error && <p className="px-2 py-2 text-sm text-red-600">{error}</p>}
+            {loading && <p className="px-2 py-2 text-sm text-center text-gray-600">{t.loading}</p>}
+            {error && <p className="px-2 py-2 text-sm text-center text-red-600">{error}</p>}
 
             {!loading && mode !== "idle" && studios.length === 0 && coords ? (
               <p className="px-2 py-8 font-semibold text-gray-600 text-center">
