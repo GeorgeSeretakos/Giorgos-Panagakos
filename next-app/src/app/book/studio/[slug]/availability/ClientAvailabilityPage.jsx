@@ -45,7 +45,6 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
       image={studio.photoUrls?.[0]}
       title={null}
       hasDarkOverlay={false}
-      tallImage={true}
       isStudioPage={true}
       paragraph={
         <div className="max-w-5xl mx-auto w-full">
