@@ -1,3 +1,4 @@
+// app/book/studio/[slug]/ClientStudioPage.jsx
 "use client";
 
 import { useEffect, useMemo, useState, useCallback } from "react";
@@ -30,14 +31,13 @@ export default function ClientStudioPage({ studio, initialLocale = "el" }) {
     () =>
       locale === "en"
         ? {
-          book: "Book Session",
+          book: "Schedule training",
           websiteAria: "Website (opens in a new tab)",
           websiteTitle: "Open website",
           instagramLabel: "Instagram profile",
           facebookLabel: "Facebook profile",
           notesTitle: "About this studio",
           mapTitle: `Map — ${studio.name}`,
-          unavailable: "Booking unavailable",
         }
         : {
           book: "Κλείσε Προπόνηση",
@@ -47,13 +47,18 @@ export default function ClientStudioPage({ studio, initialLocale = "el" }) {
           facebookLabel: "Facebook profile",
           notesTitle: "Σχετικά με το στούντιο",
           mapTitle: `Χάρτης — ${studio.name}`,
-          unavailable: "Μη διαθέσιμο",
         },
     [locale, studio?.name]
   );
 
+  // If a studio has no booking method at all, don't render a CTA button.
+  // Treat missing/null booking_mode OR explicit "NONE" as "no booking".
   const getButtonProps = useCallback(() => {
-    switch (studio.booking_mode) {
+    const mode = studio?.booking_mode;
+
+    if (!mode || mode === "NONE") return null;
+
+    switch (mode) {
       case "EXTERNAL_REDIRECT":
         return {
           type: "external",
@@ -77,7 +82,7 @@ export default function ClientStudioPage({ studio, initialLocale = "el" }) {
   ]);
 
   const btn = getButtonProps();
-  const hasBtn = btn.href && btn.href.length > 0;
+  const hasBtn = !!btn?.href;
 
   const normalizeUrl = (u) =>
     u?.startsWith("http") ? u : u ? `https://${u}` : "";
@@ -166,8 +171,8 @@ export default function ClientStudioPage({ studio, initialLocale = "el" }) {
                 </div>
               </div>
 
-              {hasBtn ? (
-                btn.type === "external" ? (
+              {hasBtn &&
+                (btn.type === "external" ? (
                   <a
                     href={btn.href}
                     target="_blank"
@@ -180,12 +185,8 @@ export default function ClientStudioPage({ studio, initialLocale = "el" }) {
                   <a href={btn.href} className="btn self-start sm:self-auto">
                     {t.book}
                   </a>
-                )
-              ) : (
-                <span className="inline-flex items-center rounded-md bg-gray-200 text-gray-700 px-3 py-2 text-sm self-start sm:self-auto">
-                  {t.unavailable}
-                </span>
-              )}
+                ))}
+              {/* If no booking, render nothing here */}
             </div>
           </div>
         }
