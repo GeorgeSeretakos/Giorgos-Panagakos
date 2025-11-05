@@ -50,7 +50,7 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
         <div className="max-w-5xl mx-auto w-full">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2>{studio.name}</h2>
+              <h2 className="text-gray-900">{studio.name}</h2>
               {studio.address ? (
                 <p className="text-gray-700 mt-1 flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-blue-500" />
@@ -74,12 +74,12 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
   // CONTACT_ONLY (and EXTERNAL_REDIRECT fallback)
   if (mode === "CONTACT_ONLY" || mode === "EXTERNAL_REDIRECT") {
     return (
-      <main className="flex flex-col">
+      <main className="flex flex-col bg-white text-gray-900">
         {Header}
 
         <div className="w-full py-12">
           <div className="mx-auto w-full max-w-[42rem] text-center mb-8">
-            <h2 className="text-2xl font-semibold">{t.contactHeading}</h2>
+            <h2 className="text-2xl font-semibold text-gray-900">{t.contactHeading}</h2>
           </div>
           <div className="mx-auto w-full max-w-[42rem]">
             <ContactForm
@@ -100,11 +100,11 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
 
   // CALENDAR_ONLY or CALENDAR_AND_CONTACT
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col bg-white text-gray-900">
       {Header}
 
-      {/* Calendar + Appointment form (side-by-side on lg) */}
-      <div className="w-full py-12 bg-[#111315]">
+      {/* Calendar + Appointment form section with light blue background */}
+      <div className="w-full py-12 bg-blue-100">
         <div className="mx-auto max-w-[96rem] w-full grid grid-cols-1 lg:grid-cols-[60%_35%] gap-8 items-stretch justify-center">
           <div className="h-full min-w-0">
             <AvailabilityBoard
@@ -127,9 +127,9 @@ export default function ClientAvailabilityPage({ studio, initialLocale = "el" })
 
       {/* Contact form BELOW both calendar components when CALENDAR_AND_CONTACT */}
       {mode === "CALENDAR_AND_CONTACT" && (
-        <div className="w-full py-12">
+        <div className="w-full py-12 bg-white">
           <div className="mx-auto w-full max-w-[42rem] text-center mb-8">
-            <h2 className="text-2xl font-semibold">{t.contactHeading}</h2>
+            <h2 className="text-2xl font-semibold text-gray-900">{t.contactHeading}</h2>
           </div>
           <div className="mx-auto w-full max-w-[42rem]">
             <ContactForm

@@ -105,11 +105,11 @@ export default function AvailabilityBoard({
             endLabel: hhmm(eDate),
           };
         });
-        
+
         // If the selected day is "today", hide any slot whose start is <= now
         let filtered = uiSlots;
         if (sameDay(selected, today)) {
-          const now = new Date(); // epoch ms; safe to compare with ISO (which carries its offset)
+          const now = new Date();
           filtered = uiSlots.filter(s => new Date(s.startISO).getTime() > now.getTime());
         }
 
@@ -130,7 +130,7 @@ export default function AvailabilityBoard({
   }, [studioId, selected, timezone, reloadTick]);
 
   const Card = (
-    <div className="rounded-xl bg-[#111315] border border-white/10 p-4 shadow-sm w-full h-full text-gray-200">
+    <div className="rounded-xl border border-gray-200 p-4 shadow-sm w-full h-full text-gray-900 bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,28%)_minmax(0,72%)] gap-8 h-full">
         {/* LEFT: Calendar */}
         <div>
@@ -138,22 +138,22 @@ export default function AvailabilityBoard({
             <button
               aria-label="Previous month"
               onClick={() => setViewDate(addMonths(viewDate, -1))}
-              className="p-1.5 rounded-lg hover:bg-white/5 cursor-pointer text-gray-300"
+              className="p-1.5 rounded-lg hover:bg-gray-50 cursor-pointer text-gray-700"
             >
               <ChevronLeft className="h-4 w-4"/>
             </button>
-            <div className="text-base font-medium text-gray-100">{monthLabel}</div>
+            <div className="text-base font-medium text-gray-900">{monthLabel}</div>
             <button
               aria-label="Next month"
               onClick={() => setViewDate(addMonths(viewDate, 1))}
-              className="p-1.5 rounded-lg hover:bg-white/5 cursor-pointer text-gray-300"
+              className="p-1.5 rounded-lg hover:bg-gray-50 cursor-pointer text-gray-700"
             >
               <ChevronRight className="h-4 w-4"/>
             </button>
           </div>
 
           {/* Weekdays */}
-          <div className="grid grid-cols-7 gap-1 text-xs text-gray-400 mb-1">
+          <div className="grid grid-cols-7 gap-1 text-xs text-gray-600 mb-1">
             {WEEKDAYS.map((w) => (
               <div key={w} className="h-7 flex items-center justify-center">
                 {w[0]}
@@ -177,13 +177,13 @@ export default function AvailabilityBoard({
                   className={[
                     "h-8 rounded-lg flex items-center justify-center text-sm transition border",
                     isPast
-                      ? "text-gray-600 bg-[#0e0f11] border-white/5 cursor-not-allowed"
+                      ? "text-gray-300 bg-gray-50 border-gray-200 cursor-not-allowed"
                       : (isSelected
                         ? "bg-[#1C86D1] text-white font-semibold shadow-sm border-[#1C86D1]"
                         : (isToday
-                          ? "ring-1 ring-[#1C86D1] text-[#93c8f0] bg-white/5 border-transparent"
-                          : "text-gray-200 hover:bg:white/5 hover:bg-white/5 cursor-pointer border-transparent")),
-                    isCurrentMonth ? "" : "text-gray-500 opacity-70"
+                          ? "ring-1 ring-[#1C86D1] text-[#1C86D1] bg-white border-transparent"
+                          : "text-gray-900 hover:bg-gray-50 cursor-pointer border-gray-200")),
+                    isCurrentMonth ? "" : "text-gray-400 opacity-70"
                   ].join(" ")}
                 >
                   {d.getDate()}
@@ -194,8 +194,8 @@ export default function AvailabilityBoard({
 
           {/* Time zone */}
           <div className="mt-4">
-            <div className="text-xs text-gray-400 mb-1">Time zone</div>
-            <div className="inline-flex items-center rounded-md bg-[#0f1113] border border-white/10 px-3 py-2 text-sm text-gray-200 select-none">
+            <div className="text-xs text-gray-600 mb-1">Time zone</div>
+            <div className="inline-flex items-center rounded-md bg-gray-100 border border-gray-300 px-3 py-2 text-sm text-gray-700 select-none">
               {timezone}
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function AvailabilityBoard({
 
         {/* RIGHT: Slots */}
         <div className="flex flex-col">
-          <div className="text-gray-300 text-sm mb-3">
+          <div className="text-gray-700 text-sm mb-3">
             {formatSelectedHeader(selected)}
           </div>
 
@@ -211,15 +211,15 @@ export default function AvailabilityBoard({
           {loading ? (
             <div className="grid grid-cols-2 gap-3">
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="h-12 rounded-lg bg-white/5 border border-white/10 animate-pulse" />
+                <div key={i} className="h-12 rounded-lg bg-gray-100 border border-gray-200 animate-pulse" />
               ))}
             </div>
           ) : error ? (
-            <div className="text-sm text-red-300 bg-red-900/20 border border-red-800/40 rounded-lg p-3">
+            <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
               Αποτυχία φόρτωσης διαθεσιμότητας: {error}
             </div>
           ) : slots.length === 0 ? (
-            <div className="text-sm text-gray-400 border border-white/10 rounded-lg p-3">
+            <div className="text-sm text-gray-600 border border-gray-200 rounded-lg p-3">
               Δεν υπάρχουν διαθέσιμα ραντεβού για αυτήν την ημέρα.
             </div>
           ) : (
@@ -246,7 +246,7 @@ export default function AvailabilityBoard({
                       "w-full rounded-lg h-12 flex items-center justify-center text-base font-medium transition cursor-pointer border",
                       isSel
                         ? "bg-[#1C86D1] border-[#1C86D1] text-white shadow-sm"
-                        : "bg-[#0f1113] border-white/10 text-gray-100 hover:bg-white/5"
+                        : "bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
                     ].join(" ")}
                   >
                     {s.label}
@@ -263,7 +263,7 @@ export default function AvailabilityBoard({
   if (embedded) return Card;
 
   return (
-    <div className="w-full text-gray-200">
+    <div className="w-full text-gray-900 bg-white">
       <div className="mx-auto px-4 py-8">{Card}</div>
     </div>
   );

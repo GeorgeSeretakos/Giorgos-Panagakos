@@ -13,7 +13,7 @@ import { appointment_steps_el, appointment_steps_en } from "../../../../public/d
  */
 export default function BookLandingLayout({ locale = "en", steps, onSearch }) {
   const t = {
-    title: locale === "en" ? "Booking" : "Κράτηση",
+    title: locale === "en" ? "Booking" : "Δοκιμαστική Συνεδρία",
     b2bTitle: locale === "en" ? "For Studio Owners (B2B)" : "Για ιδιοκτήτες studio (B2B)",
     b2bDesc: locale === "en"
       ? [

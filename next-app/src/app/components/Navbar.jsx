@@ -37,7 +37,7 @@ export default function Navbar() {
               <img
                 src="/logo/3.png"
                 alt="Logo"
-                className="h-10 sm:h-12 lg:h-16 w-auto"
+                className="h-8 sm:h-10 lg:h-12 w-auto"
               />
             </Link>
           </div>
@@ -49,7 +49,10 @@ export default function Navbar() {
             <NavItem href="/company" label={locale === "en" ? "Company" : "Η εταιρεία"} />
             <NavItem href="/ems" label={locale === "en" ? "EMS Exercise" : "Άσκηση EMS"} />
             <NavItem href="/collab" label={locale === "en" ? "Collaboration" : "Συνεργασία"} />
-            <NavItem href="/book" label={locale === "en" ? "Book" : "Κράτηση"} />
+            <NavItem
+              href="/book"
+              label={locale === "en" ? "Book" : "Δοκιμαστική Συνεδρία"}
+            />
             <NavItem href="/blog" label={locale === "en" ? "News" : "Νέα"} />
             <NavItem href="/contact" label={locale === "en" ? "Contact" : "Επικοινωνία"} />
           </div>
@@ -96,7 +99,10 @@ export default function Navbar() {
             <NavItem href="/company" label={locale === "en" ? "Company" : "Η εταιρεία"} />
             <NavItem href="/ems" label={locale === "en" ? "EMS Exercise" : "Άσκηση EMS"} />
             <NavItem href="/collab" label={locale === "en" ? "Collaboration" : "Συνεργασία"} />
-            <NavItem href="/book" label={locale === "en" ? "Book" : "Κράτηση"} />
+            <NavItem
+              href="/book"
+              label={locale === "en" ? "Book" : "Δοκιμαστική Συνεδρία"}
+            />
             <NavItem href="/blog" label={locale === "en" ? "News" : "Νέα"} />
             <NavItem href="/contact" label={locale === "en" ? "Contact" : "Επικοινωνία"} />
           </div>

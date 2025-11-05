@@ -6,7 +6,7 @@ export default function AppointmentForm({
                                           embedded = false,
                                           studioId,
                                           defaultTimezone = "Europe/Athens",
-                                          locale = "el", // <— NEW: pass from parent; defaults to Greek
+                                          locale = "el",
                                         }) {
   // -------- i18n --------
   const t = useMemo(() => {
@@ -25,9 +25,9 @@ export default function AppointmentForm({
         send: "Send",
         selectedTimeBanner: (day, time, tz) => (
           <>
-            <span className="text-gray-300">Selected:</span>
-            <span className="font-medium text-white"> {day} • {time}</span>
-            <span className="text-gray-400"> ({tz})</span>
+            <span className="text-gray-600">Selected:</span>
+            <span className="font-medium text-gray-900"> {day} • {time}</span>
+            <span className="text-gray-500"> ({tz})</span>
           </>
         ),
         form: {
@@ -66,9 +66,9 @@ export default function AppointmentForm({
       send: "Αποστολή",
       selectedTimeBanner: (day, time, tz) => (
         <>
-          <span className="text-gray-300">Επιλεγμένο:</span>
-          <span className="font-medium text-white"> {day} • {time}</span>
-          <span className="text-gray-400"> ({tz})</span>
+          <span className="text-gray-600">Επιλεγμένο:</span>
+          <span className="font-medium text-gray-900"> {day} • {time}</span>
+          <span className="text-gray-500"> ({tz})</span>
         </>
       ),
       form: {
@@ -112,7 +112,6 @@ export default function AppointmentForm({
         timezone: d.timezone || defaultTimezone,
       });
       setError("");
-      // leave setSent(true) as-is per your requirement (don’t clear on re-pick)
     }
     window.addEventListener("booking:slot", onSlot);
     return () => window.removeEventListener("booking:slot", onSlot);
@@ -193,34 +192,34 @@ export default function AppointmentForm({
     <div className="flex items-center justify-between">
       <div className="text-sm">
         {picked ? (
-          <span className="inline-flex items-center gap-2 rounded-md bg-white/5 px-3 py-1.5 border border-white/10">
+          <span className="inline-flex items-center gap-2 rounded-md bg-gray-100 px-3 py-1.5 border border-gray-200">
             {t.selectedTimeBanner(picked.day, picked.time, picked.timezone || defaultTimezone)}
           </span>
         ) : (
-          <span className="text-xs text-gray-400">{t.bannerFallback}</span>
+          <span className="text-xs text-gray-600">{t.bannerFallback}</span>
         )}
       </div>
     </div>
   );
 
   const SuccessNote = sent && (
-    <div className="rounded-lg border border-emerald-800/40 bg-emerald-900/20 p-3 text-sm text-emerald-200">
+    <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
       <div className="font-medium">{t.success.title}</div>
       <div className="mt-1">
         {t.success.bodyPrefix}
         <span className="font-semibold"> {confirmEmail}</span>
         {t.success.bodyMid}
-        {whenText ? <div className="mt-1 text-emerald-300/90">{t.success.whenPrefix}{whenText}</div> : null}
+        {whenText ? <div className="mt-1 text-emerald-700">{t.success.whenPrefix}{whenText}</div> : null}
       </div>
     </div>
   );
 
   const ErrorNote = error ? (
-    <div className="text-sm text-red-300 bg-red-900/20 border border-red-800/40 rounded-lg p-3">{error}</div>
+    <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">{error}</div>
   ) : null;
 
   const Card = (
-    <div className="rounded-xl bg-[#111315] border border-white/10 shadow-sm p-4 sm:p-6 w-full h-full text-gray-200">
+    <div className="rounded-xl bg-white border border-gray-200 shadow-sm p-4 sm:p-6 w-full h-full text-gray-900">
       <form className="space-y-5 h-full flex flex-col" onSubmit={onSubmit}>
         {Banner}
 
@@ -232,7 +231,7 @@ export default function AppointmentForm({
             type="text"
             required
             placeholder={t.form.firstName}
-            className="w-full rounded-lg border border-white/10 bg-[#0f1113] px-3.5 py-3 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
           />
           <input
             id="lastName"
@@ -240,7 +239,7 @@ export default function AppointmentForm({
             type="text"
             required
             placeholder={t.form.lastName}
-            className="w-full rounded-lg border border-white/10 bg-[#0f1113] px-3.5 py-3 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
           />
         </div>
 
@@ -252,7 +251,7 @@ export default function AppointmentForm({
             type="email"
             required
             placeholder={t.form.email}
-            className="w-full rounded-lg border border-white/10 bg-[#0f1113] px-3.5 py-3 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
           />
           <input
             id="phone"
@@ -260,7 +259,7 @@ export default function AppointmentForm({
             type="tel"
             required
             placeholder={t.form.phone}
-            className="w-full rounded-lg border border-white/10 bg-[#0f1113] px-3.5 py-3 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
           />
         </div>
 
@@ -270,7 +269,7 @@ export default function AppointmentForm({
           name="message"
           rows={5}
           placeholder={t.form.message}
-          className="w-full rounded-lg border border-white/10 bg-[#0f1113] px-3.5 py-3 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
+          className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#1C86D1] focus:border-[#1C86D1]"
         />
 
         {ErrorNote}
@@ -279,10 +278,10 @@ export default function AppointmentForm({
         {/* Privacy + Submit (hidden after success) */}
         {!sent && (
           <div className="mt-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-2">
-            <label className="flex items-center gap-2 text-xs sm:text-sm text-gray-300">
+            <label className="flex items-center gap-2 text-xs sm:text-sm text-gray-700">
               <input type="checkbox" name="consent" value="yes" required className="h-4 w-4 accent-[#1C86D1]" />
               {t.privacy.labelPrefix}
-              <a href="/privacy-policy" className="text-[#7dbcf1] hover:underline">
+              <a href="/privacy-policy" className="text-[#1C86D1] hover:underline">
                 {t.privacy.linkText}
               </a>
             </label>
@@ -312,5 +311,5 @@ export default function AppointmentForm({
   );
 
   if (embedded) return Card;
-  return <div className="mx-auto w-full px-4">{Card}</div>;
+  return <div className="mx-auto w-full px-4 bg-white">{Card}</div>;
 }

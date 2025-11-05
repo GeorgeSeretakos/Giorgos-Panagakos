@@ -15,28 +15,28 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
   // ───────────────────────────────── i18n ─────────────────────────────────
   const t = locale === "en"
     ? {
-      title: "Book your first EMS session — quickly and easily.",
+      title: "Book your first EMS session — quickly and easily",
       where: "Where?",
       addressPh: "Address",
       near: "Near me",
       search: "Search",
-      desc: "Type an area or choose “Near me” for automatic location.",
+      desc: "Type an area or choose “Near me” for automatic location",
       locating: "Locating…",
-      geoNotSupported: "Your device does not support geolocation.",
-      geoFailed: "Failed to get your location.",
-      noCoordsForAddress: "Couldn’t retrieve coordinates for this address.",
+      geoNotSupported: "Your device does not support geolocation",
+      geoFailed: "Failed to get your location",
+      noCoordsForAddress: "Couldn’t retrieve coordinates for this address",
     }
     : {
-      title: "Κλείσε τώρα την 1η σου προπόνηση EMS — εύκολα και γρήγορα.",
+      title: "Κλείσε τώρα την 1η σου προπόνηση EMS — εύκολα και γρήγορα",
       where: "Πού;",
       addressPh: "Διεύθυνση",
       near: "Κοντά μου",
       search: "Αναζήτηση",
-      desc: "Πληκτρολόγησε περιοχή ή επίλεξε «Κοντά μου» για αυτόματο εντοπισμό.",
+      desc: "Πληκτρολόγησε περιοχή ή επίλεξε «Κοντά μου» για αυτόματο εντοπισμό",
       locating: "Εντοπισμός…",
-      geoNotSupported: "Η συσκευή δεν υποστηρίζει εντοπισμό τοποθεσίας.",
-      geoFailed: "Αποτυχία εντοπισμού τοποθεσίας.",
-      noCoordsForAddress: "Δεν βρέθηκαν συντεταγμένες για αυτή τη διεύθυνση.",
+      geoNotSupported: "Η συσκευή δεν υποστηρίζει εντοπισμό τοποθεσίας",
+      geoFailed: "Αποτυχία εντοπισμού τοποθεσίας",
+      noCoordsForAddress: "Δεν βρέθηκαν συντεταγμένες για αυτή τη διεύθυνση",
     };
 
   const primaryBlue = "#1C86D1";
