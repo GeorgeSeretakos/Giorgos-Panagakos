@@ -73,20 +73,33 @@ export async function POST(req) {
       return NextResponse.json({ error: "Google auth error" }, { status: 502 });
     }
 
-    // 1) Resolve calendars
-    let availabilityCalendarId = studio.availabilityCalendarId || null;
+    // 1) Resolve Availability calendar **in real time** and update DB if changed
+    let availabilityCalendarId = null;
     try {
+      console.info("[Avail] resolving Availability calendar by name (real-time)");
+      availabilityCalendarId = await resolveCalendarIdByName(accessToken, "Availability");
+
       if (!availabilityCalendarId) {
-        console.info("[Avail] resolving Availability calendar by name");
-        availabilityCalendarId = await resolveCalendarIdByName(accessToken, "Availability");
-        if (!availabilityCalendarId) {
-          console.warn("[Avail] Availability calendar not found");
-          return NextResponse.json(
-            { error: "Availability calendar not found (must be named 'Availability')." },
-            { status: 404 }
-          );
+        console.warn("[Avail] Availability calendar not found; clearing stale id if any");
+        if (studio.availabilityCalendarId) {
+          prisma.studio
+            .update({ where: { id: studio.id }, data: { availabilityCalendarId: null } })
+            .catch(() => {});
         }
-        prisma.studio.update({ where: { id: studio.id }, data: { availabilityCalendarId } }).catch(() => {});
+        return NextResponse.json(
+          { error: "Availability calendar not found (must be named 'Availability')." },
+          { status: 404 }
+        );
+      }
+
+      if (studio.availabilityCalendarId !== availabilityCalendarId) {
+        console.info("[Avail] updating stored availabilityCalendarId", {
+          old: studio.availabilityCalendarId,
+          next: availabilityCalendarId,
+        });
+        prisma.studio
+          .update({ where: { id: studio.id }, data: { availabilityCalendarId } })
+          .catch(() => {});
       }
     } catch (e) {
       console.error("[Avail] failed to resolve calendars", { error: String(e?.message || e) });
