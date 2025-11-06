@@ -3,6 +3,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { loadGoogleMaps } from "@lib/loadGoogleMaps";
 
+// Default countries from env or fallback to GR+CY
+const DEFAULT_COUNTRIES = (process.env.NEXT_PUBLIC_PLACES_COUNTRIES || "gr,cy")
+  .split(",")
+  .map((s) => s.trim().toLowerCase())
+  .filter(Boolean);
+
 /**
  * HeroLocationSearch with Google Places Autocomplete (custom dropdown)
  *
@@ -11,33 +17,38 @@ import { loadGoogleMaps } from "@lib/loadGoogleMaps";
  *  - onSearch({ mode:"manual", coords: { latitude, longitude }, address })
  *  - onSearch({ mode:"manual", query })  // when user types but doesn't pick suggestion
  */
-export default function HeroLocationSearch({ locale = "en", onSearch }) {
+export default function HeroLocationSearch({
+                                             locale = "en",
+                                             onSearch,
+                                             countries = DEFAULT_COUNTRIES, // ← Restrict autocomplete here (defaults to ["gr","cy"])
+                                           }) {
   // ───────────────────────────────── i18n ─────────────────────────────────
-  const t = locale === "en"
-    ? {
-      title: "Book your first EMS session — quickly and easily",
-      where: "Where?",
-      addressPh: "Address",
-      near: "Near me",
-      search: "Search",
-      desc: "Type an area or choose “Near me” for automatic location",
-      locating: "Locating…",
-      geoNotSupported: "Your device does not support geolocation",
-      geoFailed: "Failed to get your location",
-      noCoordsForAddress: "Couldn’t retrieve coordinates for this address",
-    }
-    : {
-      title: "Κλείσε τώρα την 1η σου προπόνηση EMS — εύκολα και γρήγορα",
-      where: "Πού;",
-      addressPh: "Διεύθυνση",
-      near: "Κοντά μου",
-      search: "Αναζήτηση",
-      desc: "Πληκτρολόγησε περιοχή ή επίλεξε «Κοντά μου» για αυτόματο εντοπισμό",
-      locating: "Εντοπισμός…",
-      geoNotSupported: "Η συσκευή δεν υποστηρίζει εντοπισμό τοποθεσίας",
-      geoFailed: "Αποτυχία εντοπισμού τοποθεσίας",
-      noCoordsForAddress: "Δεν βρέθηκαν συντεταγμένες για αυτή τη διεύθυνση",
-    };
+  const t =
+    locale === "en"
+      ? {
+        title: "Book your first EMS session — quickly and easily",
+        where: "Where?",
+        addressPh: "Address",
+        near: "Near me",
+        search: "Search",
+        desc: "Type an area or choose “Near me” for automatic location",
+        locating: "Locating…",
+        geoNotSupported: "Your device does not support geolocation",
+        geoFailed: "Failed to get your location",
+        noCoordsForAddress: "Couldn’t retrieve coordinates for this address",
+      }
+      : {
+        title: "Κλείσε τώρα την 1η σου προπόνηση EMS — εύκολα και γρήγορα",
+        where: "Πού;",
+        addressPh: "Διεύθυνση",
+        near: "Κοντά μου",
+        search: "Αναζήτηση",
+        desc: "Πληκτρολόγησε περιοχή ή επίλεξε «Κοντά μου» για αυτόματο εντοπισμό",
+        locating: "Εντοπισμός…",
+        geoNotSupported: "Η συσκευή δεν υποστηρίζει εντοπισμό τοποθεσίας",
+        geoFailed: "Αποτυχία εντοπισμού τοποθεσίας",
+        noCoordsForAddress: "Δεν βρέθηκαν συντεταγμένες για αυτή τη διεύθυνση",
+      };
 
   const primaryBlue = "#1C86D1";
 
@@ -66,9 +77,7 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
       if (cancelled) return;
 
       gAutocomplete.current = new google.maps.places.AutocompleteService();
-      gPlaces.current = new google.maps.places.PlacesService(
-        document.createElement("div")
-      );
+      gPlaces.current = new google.maps.places.PlacesService(document.createElement("div"));
       gSession.current = new google.maps.places.AutocompleteSessionToken();
       setReady(true);
     })();
@@ -96,7 +105,7 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
     if (open && inputRef.current) inputRef.current.focus();
   }, [open]);
 
-  // Fetch predictions (debounced)
+  // Fetch predictions (debounced) — restricted to countries (GR + CY by default)
   useEffect(() => {
     if (!ready || !gAutocomplete.current) return;
     if (!open) return;
@@ -109,43 +118,43 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
         return;
       }
 
-      gAutocomplete.current.getPlacePredictions(
-        {
-          input: q,
-          componentRestrictions: { country: "gr" },
-          types: ["geocode"],
-          sessionToken: gSession.current,
-        },
-        (res, status) => {
-          if (
-            status !== google.maps.places.PlacesServiceStatus.OK ||
-            !res
-          ) {
-            setPredictions([]);
-            return;
-          }
-          const items = res.map((p) => ({
-            id: p.place_id,
-            place_id: p.place_id,
-            primary: p.structured_formatting?.main_text || p.description,
-            secondary: p.structured_formatting?.secondary_text || "",
-            description: p.description,
-          }));
-          setPredictions(items);
+      const opts = {
+        input: q,
+        types: ["geocode"],
+        sessionToken: gSession.current,
+      };
+
+      // Apply componentRestrictions only if countries array has values
+      if (Array.isArray(countries) && countries.length > 0) {
+        opts.componentRestrictions = { country: countries };
+      }
+
+      gAutocomplete.current.getPlacePredictions(opts, (res, status) => {
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !res) {
+          setPredictions([]);
+          return;
         }
-      );
+        const items = res.map((p) => ({
+          id: p.place_id,
+          place_id: p.place_id,
+          primary: p.structured_formatting?.main_text || p.description,
+          secondary: p.structured_formatting?.secondary_text || "",
+          description: p.description,
+        }));
+        setPredictions(items);
+      });
     }, 250);
 
     return () => {
       if (debounceT.current) clearTimeout(debounceT.current);
     };
-  }, [ready, open, query]);
+    // stringify countries so changes re-run this effect
+  }, [ready, open, query, JSON.stringify(countries)]);
 
   // Helpers
   const resolvePlaceIdToCoords = (place_id) =>
     new Promise((resolve, reject) => {
-      if (!gPlaces.current)
-        return reject(new Error("PlacesService not ready"));
+      if (!gPlaces.current) return reject(new Error("PlacesService not ready"));
       gPlaces.current.getDetails(
         {
           placeId: place_id,
@@ -411,9 +420,7 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
                           <span className="text-gray-900">
                             {s.primary}
                             {s.secondary ? (
-                              <span className="ml-2 text-gray-400">
-                                {s.secondary}
-                              </span>
+                              <span className="ml-2 text-gray-400">{s.secondary}</span>
                             ) : null}
                           </span>
                         </button>
@@ -441,12 +448,7 @@ export default function HeroLocationSearch({ locale = "en", onSearch }) {
               className="shrink-0"
             >
               <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="2" />
-              <path
-                d="M20 20l-3.5-3.5"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+              <path d="M20 20l-3.5-3.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
             </svg>
             {t.search}
           </button>
