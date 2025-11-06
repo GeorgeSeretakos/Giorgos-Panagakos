@@ -1,9 +1,11 @@
+// api/studios/availability/route.js
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 import { prisma } from "@lib/prisma";
 import { getValidAccessToken, ReconnectRequiredError } from "@lib/getValidAccessToken";
 import { resolveCalendarIdByName, listEvents, freeBusy } from "@lib/googleCalendar";
+import { refreshAccessToken } from "@lib/googleAuth";
 import { alignSlots, toISO } from "@lib/slots";
 
 // strict overlap: adjacent is allowed
@@ -16,7 +18,13 @@ function ymdInTz(date, tz) {
   return new Date(date).toLocaleString("sv-SE", { timeZone: tz }).slice(0, 10);
 }
 
+function isAuthError(e) {
+  const msg = String(e?.message || e);
+  return msg.includes("(401)") || msg.includes("UNAUTHENTICATED") || msg.includes("Invalid Credentials");
+}
+
 export async function POST(req) {
+  const t0 = Date.now();
   try {
     const body = await req.json();
     const { studioId, day, timezone: tzOverride, slotDurationMinutes: slotOverride } = body || {};
@@ -29,6 +37,7 @@ export async function POST(req) {
       include: { calendarConnection: true },
     });
     if (!studio || !studio.calendarConnection) {
+      console.warn("[Avail] studio or connection missing", { studioId });
       return NextResponse.json({ error: "Studio or calendar connection not found." }, { status: 404 });
     }
 
@@ -36,21 +45,31 @@ export async function POST(req) {
     const slotMinutes = slotOverride || studio.slotDurationMinutes || 30;
 
     // ---- Wide fetch window to avoid server-TZ clipping ----
-    // Base on UTC midnight of requested day, then expand: [-12h, +36h]
     const dayStartUTC = new Date(`${day}T00:00:00Z`);
     const timeMin = new Date(dayStartUTC.getTime() - 12 * 60 * 60 * 1000);
     const timeMax = new Date(dayStartUTC.getTime() + 36 * 60 * 60 * 1000);
     const timeMinISO = timeMin.toISOString();
     const timeMaxISO = timeMax.toISOString();
 
-    // 0) Google access token
+    console.info("[Avail] request", {
+      studioId,
+      timezone,
+      slotMinutes,
+      day,
+      timeMinISO,
+      timeMaxISO,
+    });
+
+    // 0) Google access token (normal path)
     let accessToken;
     try {
       accessToken = await getValidAccessToken(studio.calendarConnection.id);
     } catch (e) {
       if (e instanceof ReconnectRequiredError) {
+        console.warn("[Avail] reconnect required", { studioId, reason: e.message });
         return NextResponse.json({ error: "Reconnect calendar" }, { status: 401 });
       }
+      console.error("[Avail] Google auth error", { studioId, error: String(e?.message || e) });
       return NextResponse.json({ error: "Google auth error" }, { status: 502 });
     }
 
@@ -58,8 +77,10 @@ export async function POST(req) {
     let availabilityCalendarId = studio.availabilityCalendarId || null;
     try {
       if (!availabilityCalendarId) {
+        console.info("[Avail] resolving Availability calendar by name");
         availabilityCalendarId = await resolveCalendarIdByName(accessToken, "Availability");
         if (!availabilityCalendarId) {
+          console.warn("[Avail] Availability calendar not found");
           return NextResponse.json(
             { error: "Availability calendar not found (must be named 'Availability')." },
             { status: 404 }
@@ -67,12 +88,23 @@ export async function POST(req) {
         }
         prisma.studio.update({ where: { id: studio.id }, data: { availabilityCalendarId } }).catch(() => {});
       }
-    } catch {
+    } catch (e) {
+      console.error("[Avail] failed to resolve calendars", { error: String(e?.message || e) });
       return NextResponse.json({ error: "Failed to resolve calendars" }, { status: 502 });
     }
-    const bookingCalendarId = studio.bookingCalendarId || "primary";
 
-    // 2) Query Google: availability windows (transparent) + busy windows
+    // Safer booking calendar fallback
+    const bookingCalendarId =
+      studio.bookingCalendarId ||
+      studio.calendarConnection.calendarId ||
+      "primary";
+
+    console.info("[Avail] calendar ids", {
+      availabilityCalendarId,
+      bookingCalendarId,
+    });
+
+    // 2) Query Google with one-time auto-retry on 401
     let availResp, fb;
     try {
       availResp = await listEvents(accessToken, availabilityCalendarId, {
@@ -86,8 +118,55 @@ export async function POST(req) {
         timeMaxISO,
         timezone,
       });
-    } catch {
-      return NextResponse.json({ error: "Google service error" }, { status: 502 });
+    } catch (e) {
+      if (isAuthError(e)) {
+        console.warn("[Avail] auth 401 during Google calls; forcing refresh and retry once", { studioId });
+        // Force refresh using stored refresh token
+        const rt = studio.calendarConnection.refreshToken;
+        if (!rt) {
+          console.warn("[Avail] no refresh token on record, cannot recover");
+          return NextResponse.json({ error: "Reconnect calendar" }, { status: 401 });
+        }
+        try {
+          const data = await refreshAccessToken({
+            refreshToken: rt,
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          });
+          const nextAccess = data.access_token;
+          const expiresIn = data.expires_in ?? 3600;
+          const nextExpiry = new Date(Date.now() + expiresIn * 1000);
+          if (!nextAccess) {
+            console.error("[Avail] forced refresh returned no access token");
+            return NextResponse.json({ error: "Reconnect calendar" }, { status: 401 });
+          }
+          // Persist new AT/expiry
+          await prisma.calendarConnection.update({
+            where: { id: studio.calendarConnection.id },
+            data: { accessToken: nextAccess, expiry: nextExpiry },
+          });
+          accessToken = nextAccess;
+
+          // Retry both calls once
+          availResp = await listEvents(accessToken, availabilityCalendarId, {
+            timeMinISO, timeMaxISO, timezone,
+          });
+          fb = await freeBusy(accessToken, {
+            calendarId: bookingCalendarId,
+            timeMinISO, timeMaxISO, timezone,
+          });
+        } catch (err2) {
+          const msg2 = String(err2?.message || err2);
+          console.error("[Avail] forced refresh & retry failed", { studioId, error: msg2 });
+          if (msg2.includes("invalid_grant") || msg2.includes("unauthorized_client")) {
+            return NextResponse.json({ error: "Reconnect calendar" }, { status: 401 });
+          }
+          return NextResponse.json({ error: "Google service error" }, { status: 502 });
+        }
+      } else {
+        console.error("[Avail] Google service error", { error: String(e?.message || e) });
+        return NextResponse.json({ error: "Google service error" }, { status: 502 });
+      }
     }
 
     const availabilityWindows = (availResp.items || [])
@@ -129,9 +208,7 @@ export async function POST(req) {
     for (const w of availabilityWindows) {
       const candidates = alignSlots(w.start, w.end, slotMinutes);
       for (const s of candidates) {
-        // Keep only slots that belong to the requested *day* in the studio timezone
         if (ymdInTz(s.start, timezone) !== day) continue;
-
         const conflict = busyWindows.some(b => overlapsStrict(s.start, s.end, b.start, b.end));
         if (!conflict) outSlots.push({ start: toISO(s.start), end: toISO(s.end) });
       }
@@ -146,6 +223,14 @@ export async function POST(req) {
     const slots = (day === todayYMD)
       ? outSlots.filter(s => new Date(s.start) > new Date(nowTZ.getTime() + GRACE_MIN * 60 * 1000))
       : outSlots;
+
+    console.info("[Avail] response", {
+      studioId,
+      totalAvailabilityWindows: availabilityWindows.length,
+      totalBusyWindows: busyWindows.length,
+      totalSlots: slots.length,
+      tookMs: Date.now() - t0,
+    });
 
     return NextResponse.json({
       studioId: studio.id,
@@ -163,7 +248,7 @@ export async function POST(req) {
       },
     });
   } catch (err) {
-    console.error("Availability POST error:", err);
+    console.error("Availability POST error:", String(err?.message || err));
     return NextResponse.json(
       { error: "Failed to compute availability.", details: String(err?.message || err) },
       { status: 500 }

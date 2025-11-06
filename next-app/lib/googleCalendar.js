@@ -4,19 +4,28 @@ import { googleApiGet, googleApiPost } from "./googleAuth";
 /** Find calendar id by exact name (summary) */
 export async function resolveCalendarIdByName(accessToken, name) {
   let pageToken = undefined;
-  const target = name.trim().toLowerCase();
+  const target = String(name || "").trim().toLowerCase();
 
   for (let i = 0; i < 10; i++) {
     const url = new URL("https://www.googleapis.com/calendar/v3/users/me/calendarList");
     if (pageToken) url.searchParams.set("pageToken", pageToken);
 
-    const data = await googleApiGet(url.toString(), accessToken);
-    const items = data.items || [];
-    const match = items.find(c => (c.summary || "").trim().toLowerCase() === target);
-    if (match) return match.id || null;
+    try {
+      const data = await googleApiGet(url.toString(), accessToken);
+      const items = data.items || [];
+      const match = items.find(c => (c.summary || "").trim().toLowerCase() === target);
+      if (match) return match.id || null;
 
-    pageToken = data.nextPageToken;
-    if (!pageToken) break;
+      pageToken = data.nextPageToken;
+      if (!pageToken) break;
+    } catch (err) {
+      console.error("[GCAL] resolveCalendarIdByName error", {
+        step: "calendarList",
+        name: err?.name,
+        message: String(err?.message || err),
+      });
+      throw err;
+    }
   }
   return null;
 }
@@ -31,7 +40,28 @@ export async function listEvents(accessToken, calendarId, { timeMinISO, timeMaxI
   url.searchParams.set("showDeleted", "false");
   url.searchParams.set("maxResults", "2500");
   if (timezone) url.searchParams.set("timeZone", timezone);
-  return googleApiGet(url.toString(), accessToken);
+
+  try {
+    console.info("[GCAL] listEvents:start", {
+      calendarId,
+      timeMinISO,
+      timeMaxISO,
+      timezone,
+    });
+    const res = await googleApiGet(url.toString(), accessToken);
+    console.info("[GCAL] listEvents:ok", {
+      calendarId,
+      items: Array.isArray(res?.items) ? res.items.length : null,
+    });
+    return res;
+  } catch (err) {
+    console.error("[GCAL] listEvents error", {
+      calendarId,
+      name: err?.name,
+      message: String(err?.message || err),
+    });
+    throw err;
+  }
 }
 
 /** FreeBusy for primary (bookings) */
@@ -42,5 +72,23 @@ export async function freeBusy(accessToken, { calendarId = "primary", timeMinISO
     timeZone: timezone,
     items: [{ id: calendarId }],
   };
-  return googleApiPost("https://www.googleapis.com/calendar/v3/freeBusy", accessToken, body);
+
+  try {
+    console.info("[GCAL] freeBusy:start", {
+      calendarId,
+      timeMinISO,
+      timeMaxISO,
+      timezone,
+    });
+    const res = await googleApiPost("https://www.googleapis.com/calendar/v3/freeBusy", accessToken, body);
+    console.info("[GCAL] freeBusy:ok", { calendarId });
+    return res;
+  } catch (err) {
+    console.error("[GCAL] freeBusy error", {
+      calendarId,
+      name: err?.name,
+      message: String(err?.message || err),
+    });
+    throw err;
+  }
 }
