@@ -169,7 +169,7 @@ export default function Contact() {
           {/* Text + Social */}
           <div className="content flex font-bold flex-col items-center gap-3 w-full">
             <p>
-              &copy; 2025 FF Medical & Wellness.{" "}
+              &copy; 2025 FF Medical & Wellness - mihabodytecgreece.gr.{" "}
               {locale === "en" ? "All rights reserved." : "Όλα τα δικαιώματα διατηρούνται."}
             </p>
 
