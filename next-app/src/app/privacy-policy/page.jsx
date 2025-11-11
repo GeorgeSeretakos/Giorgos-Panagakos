@@ -32,6 +32,7 @@ export default function PrivacyPolicyContent() {
     collected: isEN ? "What data we process (by feature)" : "Ποια δεδομένα επεξεργαζόμαστε (ανά λειτουργία)",
     forms: isEN ? "Contact & Booking Forms" : "Φόρμες Επικοινωνίας & Κράτησης",
     calendar: isEN ? "Google Calendar Connection (Studios)" : "Σύνδεση Google Calendar (Στούντιο)",
+    googleRetention: isEN ? "Google User Data — Retention & Deletion" : "Δεδομένα Google — Διατήρηση & Διαγραφή",
     geolocation: isEN ? "Nearby / Geolocation" : "Κοντινά / Γεωεντοπισμός",
     logs: isEN ? "Technical & Security Logs" : "Τεχνικά & Αρχεία Ασφαλείας",
     purposes: isEN ? "Purposes & Legal Bases" : "Σκοποί & Νομικές Βάσεις",
@@ -198,6 +199,100 @@ export default function PrivacyPolicyContent() {
       </>
     ),
 
+    googleRetentionBody: isEN ? (
+      <>
+        <p className="mb-2">
+          We retain Google user data only as long as needed to provide the booking/availability feature and delete it when
+          access is revoked or no longer necessary.
+        </p>
+        <ul className="list-disc pl-6">
+          <Li>
+            <strong>What we store:</strong> OAuth <em>refresh token</em>, token <em>expiry</em>, <em>granted scopes</em>,
+            and the chosen <em>calendar identifier</em>. Access tokens are short-lived and not persistently stored.
+          </Li>
+          <Li>
+            <strong>Purpose:</strong> compute availability and (where enabled) create/manage booking events on your behalf.
+          </Li>
+          <Li>
+            <strong>Retention:</strong> while the Google connection is active. If the connection is disconnected or revoked,
+            we delete the stored refresh token and Google-derived records from production systems within <em>30 days</em>.
+          </Li>
+          <Li>
+            <strong>Inactivity:</strong> we also delete tokens that have not been used for <em>6 months</em>.
+          </Li>
+          <Li>
+            <strong>Backups & logs:</strong> backups expire on a rolling basis within <em>90 days</em>; operational logs
+            that may incidentally reference Google data expire within <em>30 days</em>.
+          </Li>
+          <Li>
+            <strong>How to delete/revoke:</strong> (a) disconnect in the app at <em>Settings → Integrations → Google</em>, or
+            (b) revoke access in your Google Account at{" "}
+            <a href="https://myaccount.google.com/permissions" target="_blank" rel="noreferrer">
+              myaccount.google.com/permissions
+            </a>. We honour either path and complete deletion within <em>30 days</em>. You can also email{" "}
+            <a href="mailto:ffmedicwell@gmail.com">ffmedicwell@gmail.com</a>.
+          </Li>
+          <Li>
+            <strong>Use & sharing limits:</strong> we do not sell Google user data, do not use it for advertising, and do
+            not use it to train AI/ML models. Data is shared only with subprocessors necessary to provide the service.
+          </Li>
+          <Li>
+            <strong>Security:</strong> encryption in transit and at rest, least-privilege access, and audited production access.
+          </Li>
+          <Li>
+            <strong>Note on calendar content:</strong> events created in your Google Calendar remain under your control in
+            Google; deleting our connection does not delete events you previously created in your Google account.
+          </Li>
+        </ul>
+      </>
+    ) : (
+      <>
+        <p className="mb-2">
+          Διατηρούμε δεδομένα χρήστη Google μόνο όσο απαιτείται για τη λειτουργία διαθεσιμότητας/κρατήσεων και τα διαγράφουμε
+          όταν η πρόσβαση ανακληθεί ή δεν είναι πλέον απαραίτητα.
+        </p>
+        <ul className="list-disc pl-6">
+          <Li>
+            <strong>Τι αποθηκεύουμε:</strong> <em>refresh token</em> OAuth, <em>λήξη token</em>, <em>παραχωρημένα scopes</em> και
+            τον <em>αναγνωριστικό ημερολογίου</em>. Τα access tokens είναι βραχύβια και δεν αποθηκεύονται μόνιμα.
+          </Li>
+          <Li>
+            <strong>Σκοπός:</strong> υπολογισμός διαθεσιμότητας και (όπου ισχύει) δημιουργία/διαχείριση γεγονότων κρατήσεων.
+          </Li>
+          <Li>
+            <strong>Διατήρηση:</strong> όσο η σύνδεση Google είναι ενεργή. Με αποσύνδεση ή ανάκληση, διαγράφουμε το refresh token
+            και τα παράγωγα δεδομένα Google από τα παραγωγικά μας συστήματα εντός <em>30 ημερών</em>.
+          </Li>
+          <Li>
+            <strong>Αδράνεια:</strong> διαγράφουμε επίσης tokens που δεν έχουν χρησιμοποιηθεί για <em>6 μήνες</em>.
+          </Li>
+          <Li>
+            <strong>Αντίγραφα & logs:</strong> τα αντίγραφα ασφαλείας λήγουν κυλιόμενα εντός <em>90 ημερών</em>· τα λειτουργικά
+            logs που ενδέχεται παροδικά να αναφέρονται σε δεδομένα Google λήγουν εντός <em>30 ημερών</em>.
+          </Li>
+          <Li>
+            <strong>Πώς διαγράφετε/ανακαλείτε:</strong> (α) αποσύνδεση στην εφαρμογή στο <em>Ρυθμίσεις → Ενσωματώσεις → Google</em>,
+            ή (β) ανάκληση πρόσβασης στον λογαριασμό σας Google στο{" "}
+            <a href="https://myaccount.google.com/permissions" target="_blank" rel="noreferrer">
+              myaccount.google.com/permissions
+            </a>. Τιμούμε και τις δύο οδούς και ολοκληρώνουμε τη διαγραφή εντός <em>30 ημερών</em>. Μπορείτε επίσης να στείλετε
+            email στο <a href="mailto:ffmedicwell@gmail.com">ffmedicwell@gmail.com</a>.
+          </Li>
+          <Li>
+            <strong>Περιορισμοί χρήσης & κοινοποίησης:</strong> δεν πουλάμε δεδομένα Google, δεν τα χρησιμοποιούμε για διαφήμιση
+            ή για εκπαίδευση μοντέλων AI/ML. Κοινοποίηση μόνο σε εκτελούντες που είναι απαραίτητοι για την παροχή υπηρεσίας.
+          </Li>
+          <Li>
+            <strong>Ασφάλεια:</strong> κρυπτογράφηση σε μεταφορά και αποθήκευση, ελάχιστα δικαιώματα πρόσβασης, έλεγχοι πρόσβασης.
+          </Li>
+          <Li>
+            <strong>Σημείωση για περιεχόμενο ημερολογίου:</strong> τα γεγονότα που δημιουργούνται στο Google Calendar παραμένουν
+            υπό τον έλεγχό σας στο Google· η αποσύνδεση από εμάς δεν διαγράφει γεγονότα που ήδη έχετε δημιουργήσει στον λογαριασμό σας.
+          </Li>
+        </ul>
+      </>
+    ),
+
     geolocationBody: isEN ? (
       <>
         <p className="mb-2">
@@ -345,7 +440,7 @@ export default function PrivacyPolicyContent() {
           <strong>Newsletter:</strong> until you withdraw consent or after prolonged inactivity.
         </Li>
         <Li>
-          <strong>Logs:</strong> short retention for security and troubleshooting, typically up to <em>90 days</em> unless a
+          <strong>Logs:</strong> short retention for security and troubleshooting, typically up to <em>30 days</em> unless a
           longer period is needed for an incident.
         </Li>
       </ul>
@@ -368,7 +463,7 @@ export default function PrivacyPolicyContent() {
           <strong>Newsletter:</strong> έως ανάκληση συγκατάθεσης ή μετά από παρατεταμένη αδράνεια.
         </Li>
         <Li>
-          <strong>Logs:</strong> μικρή διατήρηση για ασφάλεια/αποσφαλμάτωση, συνήθως έως <em>90 ημέρες</em>, εκτός αν
+          <strong>Logs:</strong> μικρή διατήρηση για ασφάλεια/αποσφαλμάτωση, συνήθως έως <em>30 ημέρες</em>, εκτός αν
           απαιτείται λόγω περιστατικού.
         </Li>
       </ul>
@@ -553,6 +648,7 @@ export default function PrivacyPolicyContent() {
                 <li><a href="#data-we-collect">{t.collected}</a></li>
                 <li><a href="#forms">{t.forms}</a></li>
                 <li><a href="#calendar">{t.calendar}</a></li>
+                <li><a href="#google-retention">{t.googleRetention}</a></li>
                 <li><a href="#geolocation">{t.geolocation}</a></li>
                 <li><a href="#logs">{t.logs}</a></li>
                 <li><a href="#purposes">{t.purposes}</a></li>
@@ -570,7 +666,7 @@ export default function PrivacyPolicyContent() {
               </ol>
             </li>
             <li className="mt-3">
-              <a href="#terms">{t.terms}</a>
+            <a href="#terms">{t.terms}</a>
               <ol className="list-decimal pl-6 mt-2 space-y-1">
                 <li><a href="#acceptance">{t.accept}</a></li>
                 <li><a href="#ip">{t.ip}</a></li>
@@ -618,6 +714,11 @@ export default function PrivacyPolicyContent() {
           <section id="calendar" className="mb-8">
             <h3>5) {t.calendar}</h3>
             <div>{t.calendarBody}</div>
+          </section>
+
+          <section id="google-retention" className="mb-8">
+            <h3>5a) {t.googleRetention}</h3>
+            <div>{t.googleRetentionBody}</div>
           </section>
 
           <section id="geolocation" className="mb-8">
