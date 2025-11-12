@@ -1,84 +1,85 @@
-// app/contact/page.jsx
 "use client";
 
-import { useEffect, useState } from "react";
-import SocialSection from "../components/home/SocialSection";
-
-export default function Contact() {
-  const [locale, setLocale] = useState("el");
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") || "el";
-    setLocale(saved);
-  }, []);
-
+export default function Footer() {
   return (
-    <main className="flex flex-col">
-      {/* Contact Section */}
-      <section className="relative text-white py-12 px-4 min-h-screen flex items-center">
-        {/* Background image */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/general/28.jpg')" }}
-        ></div>
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/80 z-0"></div>
-
+    <main className="flex flex-col min-h-screen">
+      {/* Ενιαίο τμήμα Επικοινωνίας */}
+      <section className="flex-grow relative py-12 px-4 flex items-center bg-[#0E2A4C] text-white min-h-[calc(100vh-70px)]">
         <div className="relative z-10 w-full max-w-6xl mx-auto">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8">
-            {locale === "en" ? "Contact Us" : "Επικοινώνησε Μαζί μας"}
-          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Contact Info */}
-            <div className="bg-white/5 p-6 rounded-lg text-sm sm:text-base">
-              <div className="mb-4">
-                <strong>{locale === "en" ? "Address" : "Διεύθυνση"}</strong>
-                <ul className="list-disc pl-5">
-                  <li>{locale === "en" ? "Iroon Polytechneiou 5, Nea Erythraia" : "Ηρώων Πολυτεχνείου 5, Νέα Ερυθραία 146 71"}</li>
-                </ul>
+            {/* Πληροφορίες Επικοινωνίας */}
+            <div className="text-sm sm:text-base flex flex-col justify-center">
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold mb-2">
+                  Κεντρικά Γραφεία (Αθήνα)
+                </h2>
+                <p className="leading-relaxed">
+                  Πειραιώς 4, Αθήνα, Ομόνοια
+                  <br />
+                  <a
+                    href="mailto:aggelopoulos.legal@gmail.com"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    aggelopoulos.legal@gmail.com
+                  </a>
+                  <br />
+                  <a
+                    href="tel:6948941308"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    6948941308
+                  </a>
+                  ,{" "}
+                  <a
+                    href="tel:2105236039"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    2105236039
+                  </a>
+                </p>
               </div>
-              <div className="mb-4">
-                <strong>{locale === "en" ? "Phone" : "Τηλέφωνο"}</strong>
-                <ul className="list-disc pl-5">
-                  <li>210 8070010</li>
-                  <li>211 2143161</li>
-                </ul>
-              </div>
-              <div className="mb-4">
-                <strong>Email</strong>
-                <ul className="list-disc pl-5">
-                  <li>
-                    <a
-                      href="mailto:ffmedicwell@gmail.com"
-                      className="text-blue-400 hover:underline"
-                    >
-                      ffmedicwell@gmail.com
-                    </a>
-                  </li>
-                </ul>
-              </div>
+
               <div>
-                <strong>{locale === "en" ? "Opening Hours" : "Ώρες Λειτουργίας"}</strong>
-                <ul className="list-disc pl-5">
-                  <li>
-                    {locale === "en"
-                      ? "Monday – Friday: 09:00 – 21:00"
-                      : "Δευτέρα - Παρασκευή: 09:00 – 21:00"}
-                  </li>
-                  <li>{locale === "en" ? "Saturday: 10:00 – 15:00" : "Σάββατο: 10:00 - 15.00"}</li>
-                  <li>{locale === "en" ? "Sunday: Closed" : "Κυριακή: Κλειστά"}</li>
-                </ul>
+                <h2 className="text-lg font-semibold mb-2">
+                  Γραφεία Περιστερίου Αττικής
+                </h2>
+                <p className="leading-relaxed">
+                  Παύλου Μελά 45-47, Εντός εμπορικού κέντρου
+                  <br />
+                  <a
+                    href="mailto:gsa.panagakos.law@gmail.com"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    gsa.panagakos.law@gmail.com
+                  </a>
+                  <br />
+                  <a
+                    href="tel:6981165818"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    6981165818
+                  </a>
+                  ,{" "}
+                  <a
+                    href="tel:2114120834"
+                    className="underline underline-offset-2 hover:opacity-90"
+                  >
+                    2114120834
+                  </a>
+                </p>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-white/5 p-6 rounded-lg text-sm sm:text-base">
+            {/* Κάθετος Διαχωριστής */}
+            <div className="hidden md:block w-px bg-white/40 h-[80%] absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+
+            {/* Φόρμα Επικοινωνίας */}
+            <div className="text-sm sm:text-base flex flex-col justify-center">
               <p className="mb-4 font-bold">
-                {locale === "en"
-                  ? "Fill out the form and we'll get back to you as soon as possible."
-                  : "Συμπλήρωσε τη φόρμα και θα επικοινωνήσουμε μαζί σου το συντομότερο."}
+                Συμπληρώστε τη φόρμα και θα επικοινωνήσουμε μαζί σας.
               </p>
+
               <form
                 name="contact"
                 method="POST"
@@ -87,11 +88,10 @@ export default function Contact() {
                 action="/thank-you"
                 className="space-y-4"
               >
-                <input type="hidden" name="form-name" value="contact"/>
+                <input type="hidden" name="form-name" value="contact" />
                 <p hidden>
                   <label>
-                    {locale === "en" ? "Don’t fill this out:" : "Μην το συμπληρώσεις:"}{" "}
-                    <input name="bot-field"/>
+                    Μην το συμπληρώσετε: <input name="bot-field" />
                   </label>
                 </p>
 
@@ -99,16 +99,16 @@ export default function Contact() {
                   <input
                     type="text"
                     name="Όνομα"
-                    placeholder={locale === "en" ? "First name" : "Όνομα"}
+                    placeholder="Όνομα"
                     required
-                    className="flex-1 p-2 rounded bg-black/30 border border-gray-700 text-white"
+                    className="flex-1 p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                   />
                   <input
                     type="text"
                     name="Επώνυμο"
-                    placeholder={locale === "en" ? "Last name" : "Επώνυμο"}
+                    placeholder="Επώνυμο"
                     required
-                    className="flex-1 p-2 rounded bg-black/30 border border-gray-700 text-white"
+                    className="flex-1 p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                   />
                 </div>
 
@@ -117,35 +117,42 @@ export default function Contact() {
                   name="email"
                   placeholder="Email"
                   required
-                  className="w-full p-2 rounded bg-black/30 border border-gray-700 text-white"
+                  className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                 />
 
                 <input
                   type="tel"
                   name="Τηλέφωνο"
-                  placeholder={locale === "en" ? "Phone" : "Τηλέφωνο"}
+                  placeholder="Τηλέφωνο"
                   required
-                  className="w-full p-2 rounded bg-black/30 border border-gray-700 text-white"
+                  className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                 />
 
                 <textarea
                   name="Μήνυμα"
                   rows={5}
-                  placeholder={locale === "en" ? "Message" : "Μήνυμα"}
+                  placeholder="Μήνυμα"
                   required
-                  className="w-full p-2 rounded bg-black/30 border border-gray-700 text-white"
+                  className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                 />
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <label className="flex items-center gap-2 text-xs sm:text-sm">
-                    <input type="checkbox" required className="accent-blue-500 scale-110"/>
-                    {locale === "en" ? "I accept the" : "Αποδέχομαι την"}{" "}
-                    <a href="/privacy-policy" className="text-blue-400 hover:underline">
-                      {locale === "en" ? "Privacy Policy" : "Πολιτική Απορρήτου"}
+                    <input type="checkbox" required className="accent-white scale-110" />
+                    Αποδέχομαι την{" "}
+                    <a
+                      href="/privacy-policy"
+                      className="underline underline-offset-2 hover:opacity-90"
+                    >
+                      Πολιτική Απορρήτου
                     </a>
                   </label>
-                  <button type="submit" className="btn">
-                    {locale === "en" ? "Send" : "Αποστολή"}
+
+                  <button
+                    type="submit"
+                    className="bg-white text-[#0E2A4C] font-semibold px-6 py-2 rounded hover:opacity-90 transition"
+                  >
+                    Αποστολή
                   </button>
                 </div>
               </form>
@@ -154,65 +161,19 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="py-8 bg-white/5 text-center mx-auto">
-        <div className="max-w-6xl mx-auto flex flex-col items-center md:items-start gap-6 px-4">
-          {/* Logo always on top */}
-          <div className="w-full mx-auto max-w-[200px] md:max-w-[250px]">
-            <img
-              src="/logo/3.png"
-              alt="Miha Bodytec Logo"
-              className="w-full h-auto object-contain mx-auto md:mx-0"
-            />
-          </div>
-
-          {/* Text + Social */}
-          <div className="content flex font-bold flex-col items-center gap-3 w-full">
-            <p>
-              &copy; 2025 FF Medical & Wellness - mihabodytecgreece.gr.{" "}
-              {locale === "en" ? "All rights reserved." : "Όλα τα δικαιώματα διατηρούνται."}
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-2">
-              <a href="mailto:ffmedicwell@gmail.com" className="hover:underline">
-                ffmedicwell@gmail.com
-              </a>
-              <span className="hidden sm:inline">·</span>
-              <a href="tel:2108070010" className="hover:underline">
-                210 8070010
-              </a>
-              <span className="hidden sm:inline">·</span>
-              <a href="tel:2112143161" className="hover:underline">
-                211 2143161
-              </a>
-              <span className="hidden sm:inline">·</span>
-              <a href="/privacy-policy" className="hover:underline">
-                {locale === "en" ? "Privacy Policy" : "Πολιτική Απορρήτου"}
-              </a>
-            </div>
-
-            {/* Social icons */}
-            <div className="mt-2">
-              <SocialSection />
-            </div>
-          </div>
+      {/* Κάτω Τμήμα Footer */}
+      <footer className="py-5 bg-[#0E2A4C] text-white border-t border-white/20 mt-auto">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-center items-center gap-2 text-sm text-center">
+          <p>© 2025 AGPA Law Office. Όλα τα δικαιώματα διατηρούνται.</p>
+          <span className="hidden md:inline mx-2">·</span>
+          <a
+            href="/privacy-policy"
+            className="underline underline-offset-2 hover:opacity-90"
+          >
+            Πολιτική Απορρήτου
+          </a>
         </div>
       </footer>
-
-      {/* Map Section */}
-      <section className="w-full">
-        <div className="w-full">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3140.1926897680096!2d23.812853375855056!3d38.08917839398699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a19efc17b18f5f%3A0x8b7caf8209b192c1!2zzpfPgS4gzqDOv867z4XPhM61z4fOvc61zq_Ov8-FIDUsIM6dzq3OsSDOlc-Bz4XOuM-BzrHOr86xIDE0NiA3MQ!5e0!3m2!1sel!2sgr!4v1755200375385!5m2!1sel!2sgr"
-            className="rounded-none md:rounded-lg w-full"
-            height="400"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      </section>
     </main>
   );
 }

@@ -1,65 +1,31 @@
 // public/data/services.js
 
-export const services_el = [
+const services = [
   {
-    iconSrc: "/icons/full-body.png",
-    iconAlt: "Full body",
-    title: "Ολόσωμη ενεργοποίηση",
-    description:
-      "Ενεργοποιεί και ενδυναμώνει όλες τις μυϊκές ομάδες με υψηλή ένταση",
+    icon: "/icons/bank.png",
+    title: "Τραπεζικό Δίκαιο",
+    text: "Αναλαμβάνουμε τον έλεγχο και την προσβολή καταχρηστικών τραπεζικών όρων, ανακοπές κατά διαταγών πληρωμής, αγωγές αποζημίωσης και υποθέσεις υπερχρεωμένων νοικοκυριών.",
   },
   {
-    iconSrc: "/icons/joints.png",
-    iconAlt: "Joints",
-    title: "Ασφάλεια χωρίς φορτία",
-    description:
-      "Χωρίς καταπόνηση σε αρθρώσεις και τένοντες, κατάλληλη για όλους",
+    icon: "/icons/hammer.png",
+    title: "Δίκαιο Αναγκαστικής Εκτέλεσης",
+    text: "Εξειδικευμένη διαχείριση υποθέσεων κατάσχεσης, πλειστηριασμών και διαταγών πληρωμής για τράπεζες, funds και επιχειρήσεις, με πλήρη νομική εκπροσώπηση.",
   },
   {
-    iconSrc: "/icons/high-quality.png",
-    iconAlt: "High Quality",
-    title: "Προσωπική καθοδήγηση",
-    description: "Ατομικές συνεδρίες 1:1 ή 1:2 με εξειδικευμένο προπονητή",
+    icon: "/icons/briefcase.png",
+    title: "Εμπορικό Δίκαιο",
+    text: "Νομική καθοδήγηση επιχειρήσεων σε όλα τα στάδια λειτουργίας τους — από τη σύσταση και τους μετασχηματισμούς έως τον νομικό και φορολογικό σχεδιασμό.",
   },
   {
-    iconSrc: "/icons/calendar.png",
-    iconAlt: "Calendar",
-    title: "Μόνο 20’ την εβδομάδα",
-    description:
-      "Εύκολο να ενταχθεί στη σύγχρονη καθημερινότητα των πελατών σας",
+    icon: "/icons/contract.png",
+    title: "Αστικό Δίκαιο",
+    text: "Υποθέσεις αστικών διαφορών και συμβάσεων, εξωδικαστικοί συμβιβασμοί και πλήρης δικαστική προστασία σε όλους τους βαθμούς δικαιοδοσίας.",
+  },
+  {
+    icon: "/icons/scales.png",
+    title: "Ποινικό Δίκαιο",
+    text: "Υπεράσπιση και υποστήριξη σε ποινικές υποθέσεις με απόλυτη εχεμύθεια και στρατηγική καθοδήγηση σε κάθε στάδιο της διαδικασίας.",
   },
 ];
 
-export const services_en = [
-  {
-    iconSrc: "/icons/full-body.png",
-    iconAlt: "Full body",
-    title: "Full-body activation",
-    description:
-      "Activates and strengthens all muscle groups with high intensity.",
-  },
-  {
-    iconSrc: "/icons/joints.png",
-    iconAlt: "Joints",
-    title: "Safety without loads",
-    description:
-      "No strain on joints and tendons; suitable for everyone.",
-  },
-  {
-    iconSrc: "/icons/high-quality.png",
-    iconAlt: "High Quality",
-    title: "Personal guidance",
-    description:
-      "1:1 or 1:2 sessions with a specialized coach.",
-  },
-  {
-    iconSrc: "/icons/calendar.png",
-    iconAlt: "Calendar",
-    title: "Only 20’ per week",
-    description:
-      "Easy to fit into your clients’ modern schedules.",
-  },
-];
-
-// (Optional) Greek as default for backward compatibility
-export default services_el;
+export default services;

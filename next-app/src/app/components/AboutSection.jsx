@@ -1,23 +1,26 @@
 import Link from "next/link";
 
 export default function AboutSection({
-title,
-image,
-reverse = false,
-fullWidthTitle = true,
-description = [],
-ticks = [],
-features = [],
-tickIcon = "/icons/check.png",
-ctaText = "",
-ctaLink = "",
-}) {
+                                       title,
+                                       image,
+                                       reverse = false,
+                                       fullWidthTitle = true,
+                                       description = [],
+                                       ticks = [],
+                                       features = [],
+                                       tickIcon = "/icons/scales.png",
+                                       ctaText = "",
+                                       ctaLink = "",
+                                     }) {
   return (
-    <section className="max-w-6xl m-auto px-4 py-12 rounded-xl">
-      {/* Full width title */}
+    <section className="max-w-6xl m-auto px-4 py-12">
+      {/* Title (elegant, serious tone) */}
       {fullWidthTitle && (
-        <div className="bg-[#1C86D1] p-4 rounded-none md:rounded-xl text-xl sm:text-2xl font-bold text-white text-center mb-8 w-screen relative left-1/2 right-1/2 -ml-[50vw] md:w-auto md:relative md:left-0 md:right-0 md:ml-0">
-          {title}
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold italic tracking-wide text-[#0E2A4C]">
+            {title}
+          </h2>
+          <div className="w-16 h-[2px] bg-[#0E2A4C] mx-auto mt-3" />
         </div>
       )}
 
@@ -26,7 +29,6 @@ ctaLink = "",
           reverse ? "md:flex-row-reverse" : ""
         } gap-8 items-center`}
       >
-
         {/* Image */}
         <div className="w-full md:flex-1">
           <div className="block md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw]">
@@ -41,27 +43,25 @@ ctaLink = "",
             <img
               src={image}
               alt={title}
-              className="w-full object-cover rounded-lg"
+              className="w-full object-cover rounded-lg shadow-sm"
             />
           </div>
         </div>
 
-
         {/* Content */}
         <div className="w-full md:flex-1">
-          {!fullWidthTitle && <h2 className="title-teal mb-6">{title}</h2>}
+          {!fullWidthTitle && (
+            <h2 className="text-2xl font-semibold text-[#0E2A4C] mb-6">{title}</h2>
+          )}
 
           {/* Description */}
-          <div className="leading-relaxed space-y-4">
+          <div className="leading-relaxed space-y-4 text-[#2F3E46]">
             {description.map((item, i) => (
-              <p
-                key={i}
-                dangerouslySetInnerHTML={{ __html: item }}
-              />
+              <p key={i} dangerouslySetInnerHTML={{ __html: item }} />
             ))}
           </div>
 
-          {/* Ticks */}
+          {/* Bullet Points */}
           {ticks.length > 0 && (
             <ul className="mt-6 space-y-2">
               {ticks.map((t, i) => (
@@ -72,7 +72,7 @@ ctaLink = "",
                     className="w-5 h-5 mt-0.5 select-none"
                     aria-hidden="true"
                   />
-                  <span className="font-medium">{t}</span>
+                  <span className="font-medium text-[#0E2A4C]">{t}</span>
                 </li>
               ))}
             </ul>
@@ -82,17 +82,14 @@ ctaLink = "",
           {features.length > 0 && (
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {features.map((f, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center text-center"
-                >
+                <div key={i} className="flex flex-col items-center text-center">
                   <img
                     src={f.icon}
                     alt=""
                     className="w-14 h-14 object-contain mb-3 select-none"
                     aria-hidden="true"
                   />
-                  <div className="text-gray-600 font-semibold leading-snug !text-sm">
+                  <div className="text-[#2F3E46] font-semibold leading-snug text-sm">
                     {f.text}
                   </div>
                 </div>
@@ -100,10 +97,13 @@ ctaLink = "",
             </div>
           )}
 
-          {/* CTA */}
+          {/* CTA Button */}
           {ctaText && (
             <div className="my-10 flex justify-center md:justify-start">
-              <Link href={ctaLink || "#"} className="btn">
+              <Link
+                href={ctaLink || "#"}
+                className="inline-block bg-[#0E2A4C] text-white px-6 py-2 rounded font-semibold hover:opacity-90 transition"
+              >
                 {ctaText}
               </Link>
             </div>

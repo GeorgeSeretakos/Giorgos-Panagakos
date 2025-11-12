@@ -1,76 +1,96 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────
+   Brand tokens (AGPA Law)
+   ────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-sans: var(--font-manrope), var(--font-open-sans), var(--font-roboto), ui-serif, sans-serif;
+  --background: #FFFFFF;          /* light theme */
+  --foreground: #0E2A4C;          /* body text */
+  --primary:   #2F3E46;           /* deep charcoal */
+  --primary-600: #394A52;         /* hover shade */
+  --primary-700: #24323A;         /* pressed */
+  --accent:    #C5A572;           /* muted gold */
+  --accent-600:#B69355;
+  --border:    #E5E7EB;           /* subtle dividers */
+  --font-sans: var(--font-roboto-condensed), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-.font-great-vibes {
-  font-family: var(--font-great-vibes);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { font-family: var(--font-sans); }
 
 body {
-  background: white;
-  color: black;
-  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/*dark: "#2B2D31",*/
-/*light: "#1E1F23",*/
-
-/* Titles */
-h1 {
-  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug;
-}
-h2 {
-  @apply text-lg sm:text-xl md:text-2xl lg:text-2xl font-bold leading-snug;
-}
-h3 {
-  @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold;
-}
-h4 {
-  @apply text-sm sm:text-base font-medium;
-}
+/* Titles (slightly darker, elegant sizes) */
+h1 { @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug; }
+h2 { @apply text-lg sm:text-xl md:text-2xl lg:text-2xl font-bold leading-snug; }
+h3 { @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold; }
+h4 { @apply text-sm sm:text-base font-medium; }
 
 /* Paragraphs + content links */
-p, .content a {
-  @apply text-xs sm:text-sm md:text-base leading-relaxed;
+p, .content a { @apply text-xs sm:text-sm md:text-base leading-relaxed; }
+.content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
-
 
 /* Lists */
-ul, ol {
-  @apply list-inside pl-4 text-[0.7rem] sm:text-sm md:text-base leading-relaxed;
-}
-li {
-  @apply mb-1;
-}
+ul, ol { @apply list-inside pl-4 text-[0.7rem] sm:text-sm md:text-base leading-relaxed; }
+li { @apply mb-1; }
 
+/* ──────────────────────────────────────────────
+   Utilities (no blues)
+   ────────────────────────────────────────────── */
 
-/* ✅ Global utility classes */
+/* Primary button */
+/* Buttons */
 .btn {
-  @apply inline-block px-6 py-2 rounded-xl text-white bg-[#1C86D1] hover:bg-blue-400 transition font-bold;
+  @apply inline-block px-6 py-2 rounded-xl font-bold transition;
+  color: #ffffff !important;
+  background-color: #2F3E46 !important; /* charcoal */
+}
+.btn:hover {
+  background-color: #394A52 !important;
+}
+.btn:active {
+  background-color: #24323A !important;
 }
 
-.title-teal {
-  @apply font-bold mb-6 text-[#1C86D1];
+.btn:focus-visible { @apply outline-none ring-2; ring-color: var(--accent); }
+
+/* Outline button (optional) */
+.btn-outline {
+  @apply inline-block px-6 py-2 rounded-xl font-semibold transition;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  background-color: transparent;
+}
+.btn-outline:hover {
+  background-color: rgba(47,62,70,0.06); /* faint charcoal wash */
 }
 
-.title-black {
-  @apply font-bold mb-6 text-black;
+/* Section titles */
+.title-primary {
+  @apply font-bold mb-6;
+  color: var(--primary);
+}
+/* Optional thin accent rule under titles */
+.title-underline::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: var(--accent);
+}
+
+/* Dividers */
+.hr {
+  height: 1px;
+  background: var(--border);
 }
