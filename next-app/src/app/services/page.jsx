@@ -2,6 +2,8 @@
 
 import IntroSection from "../components/IntroSection";
 import AboutSection from "../components/AboutSection";
+import FeatureGrid from "../components/FeatureGrid";
+import services from "../../../public/data/services";
 
 export default function ServicesPage() {
   return (
@@ -39,6 +41,7 @@ export default function ServicesPage() {
         }
       />
 
+      <FeatureGrid title="Υπηρεσίες" items={services} />
 
       {/* ---------- ΤΡΑΠΕΖΙΚΟ ΔΙΚΑΙΟ ---------- */}
       <AboutSection
