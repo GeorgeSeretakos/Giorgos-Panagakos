@@ -20,9 +20,9 @@ export default function HomePage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               AGPA Law Office
             </h1>
-            <p className="mt-2 sm:mt-3 text-base sm:text-lg lg:text-xl font-medium text-white/90">
-              Εξειδίκευση στην Αναγκαστική Εκτέλεση &amp; Τραπεζικό Δίκαιο
-            </p>
+            {/*<p className="mt-2 sm:mt-3 text-base sm:text-lg lg:text-xl font-medium text-white/90">*/}
+            {/*  Εξειδίκευση στην Αναγκαστική Εκτέλεση &amp; Τραπεζικό Δίκαιο*/}
+            {/*</p>*/}
           </div>
         }
         paragraph={
@@ -45,7 +45,7 @@ export default function HomePage() {
         }
       />
 
-      <FeatureGrid title="Υπηρεσίες" items={services} />
+      <FeatureGrid title="Υπηρεσίες" items={services} preview />
 
       <AboutSection
         title="Σχετικά με τον Γεώργιο Α. Παναγάκο"

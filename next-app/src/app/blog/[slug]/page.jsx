@@ -1,4 +1,3 @@
-// app/blog/[slug]/page.jsx
 import posts from "../../../../public/data/blog";
 import Link from "next/link";
 

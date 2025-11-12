@@ -1,8 +1,4 @@
-// public/data/blog.js
-
-// ΜΟΝΟ ΕΛΛΗΝΙΚΑ
 export const posts = [
-  // ───────────── Άρθρα ─────────────
   {
     pdfUrl: null,
     slug: "katakhritikoi-gos-trapezikes-symvaseis",
@@ -57,5 +53,4 @@ export const posts = [
 
 ];
 
-// Εξαγωγή προεπιλογής (Greek only)
 export default posts;

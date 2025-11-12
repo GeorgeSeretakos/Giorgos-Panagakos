@@ -2,27 +2,30 @@
 
 import Link from "next/link";
 
-export default function FeatureGrid({ items = [], title }) {
-  // Add CTA as the 6th item
-  const enhancedItems = [
-    ...items,
-    {
-      isCTA: true,
-      title: "Δείτε αναλυτικά όλες τις υπηρεσίες",
-      text:
-        "Περιηγηθείτε στη σελίδα υπηρεσιών για πλήρη ενημέρωση ανά τομέα δικαίου.",
-      href: "/services",
-      icon: "/icons/more.png", // optional — can be removed if undesired
-    },
-  ];
+export default function FeatureGrid({ items = [], title, preview = false }) {
+  // Add CTA only in preview mode
+  const enhancedItems = preview
+    ? [
+      ...items,
+      {
+        isCTA: true,
+        title: "Δείτε αναλυτικά όλες τις υπηρεσίες",
+        text:
+          "Περιηγηθείτε στη σελίδα υπηρεσιών για πλήρη ενημέρωση ανά τομέα δικαίου.",
+        href: "/services",
+        icon: "/icons/more.png",
+      },
+    ]
+    : items;
 
   return (
     <section className="w-4/5 max-w-6xl mx-auto py-16">
-      {/*{title && (*/}
-      {/*  <h2 className="text-2xl md:text-3xl font-bold text-center text-[var(--foreground)] mb-12">*/}
-      {/*    {title}*/}
-      {/*  </h2>*/}
-      {/*)}*/}
+      {/* Optional title */}
+      {/* {title && (
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-[var(--foreground)] mb-12">
+          {title}
+        </h2>
+      )} */}
 
       <div className="grid md:grid-cols-2 gap-10">
         {enhancedItems.map((item, i) => (
