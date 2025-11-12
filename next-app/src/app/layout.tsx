@@ -1,8 +1,8 @@
+// app/layout.jsx (or layout.tsx)
 import "./styles/globals.css";
 import Navbar from "./components/Navbar";
 import { ReactNode } from "react";
 import Footer from "@components/Footer";
-
 import { Roboto_Condensed } from "next/font/google";
 
 const robotoCondensed = Roboto_Condensed({
@@ -10,7 +10,6 @@ const robotoCondensed = Roboto_Condensed({
     variable: "--font-roboto-condensed",
     weight: ["300", "400", "700"],
 });
-
 
 export const metadata = {
     title: "AGPA LAW OFFICE",
@@ -21,6 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="el" className={robotoCondensed.variable}>
         <body className="antialiased min-h-screen flex flex-col bg-[#0B0B0C] text-white">
+        {/* Hidden build-time form for Netlify detection */}
         <form
             name="contact"
             method="POST"
@@ -29,12 +29,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             hidden
         >
             <input type="hidden" name="form-name" value="contact" />
-            <input type="text" name="firstName" />
-            <input type="text" name="lastName" />
-            <input type="email" name="email" />
-            <input type="tel" name="phone" />
-            <textarea name="message" />
-            <input type="text" name="bot-field" />
+            <input type="text" name="firstName" />   {/* ✅ aligned */}
+            <input type="text" name="lastName" />    {/* ✅ aligned */}
+            <input type="email" name="email" />      {/* ✅ aligned */}
+            <input type="tel" name="phone" />        {/* ✅ aligned */}
+            <textarea name="message" />              {/* ✅ aligned */}
+            <input type="text" name="bot-field" />   {/* ✅ honeypot */}
         </form>
 
         <Navbar />
