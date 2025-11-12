@@ -45,7 +45,6 @@ export default function HomePage() {
         }
       />
 
-
       <FeatureGrid title="Υπηρεσίες" items={services} />
 
       <AboutSection
@@ -63,15 +62,11 @@ export default function HomePage() {
           "Προσωποποιημένη νομική καθοδήγηση",
         ]}
         ctaText="Μάθετε περισσότερα"
-        ctaLink="/company"
+        ctaLink="/about"
       />
 
       <TestimonialsCarousel />
 
-
-
-
-      {/* TODO: επόμενες ενότητες της αρχικής (Mini About, Mini Services, Bio, Office preview, Testimonials, Footer) */}
     </main>
   );
 }

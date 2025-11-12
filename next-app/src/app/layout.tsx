@@ -29,12 +29,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             hidden
         >
             <input type="hidden" name="form-name" value="contact" />
-            <input type="text" name="firstName" />   {/* ✅ aligned */}
-            <input type="text" name="lastName" />    {/* ✅ aligned */}
-            <input type="email" name="email" />      {/* ✅ aligned */}
-            <input type="tel" name="phone" />        {/* ✅ aligned */}
-            <textarea name="message" />              {/* ✅ aligned */}
-            <input type="text" name="bot-field" />   {/* ✅ honeypot */}
+            <input type="text" name="firstName" />
+            <input type="text" name="lastName" />
+            <input type="email" name="email" />
+            <input type="tel" name="phone" />
+            <textarea name="message" />
+            <input type="text" name="bot-field" />
         </form>
 
         <Navbar />

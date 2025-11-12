@@ -68,14 +68,14 @@ export default function Footer() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <input
                     type="text"
-                    name="firstName"            // ✅ aligned
+                    name="firstName"
                     placeholder="Όνομα"
                     required
                     className="flex-1 p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                   />
                   <input
                     type="text"
-                    name="lastName"             // ✅ aligned
+                    name="lastName"
                     placeholder="Επώνυμο"
                     required
                     className="flex-1 p-2 rounded bg-white text-[#2F3E46] border border-white/30"
@@ -84,7 +84,7 @@ export default function Footer() {
 
                 <input
                   type="email"
-                  name="email"                  // ✅ aligned
+                  name="email"
                   placeholder="Email"
                   required
                   className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
@@ -92,17 +92,16 @@ export default function Footer() {
 
                 <input
                   type="tel"
-                  name="phone"                  // ✅ aligned
+                  name="phone"
                   placeholder="Τηλέφωνο"
                   required
                   className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                 />
 
                 <textarea
-                  name="message"                // ✅ aligned
+                  name="message"
                   rows={5}
                   placeholder="Μήνυμα"
-                  required
                   className="w-full p-2 rounded bg-white text-[#2F3E46] border border-white/30"
                 />
 

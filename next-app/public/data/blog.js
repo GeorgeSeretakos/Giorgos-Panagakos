@@ -44,17 +44,16 @@ export const posts = [
   },
 
   {
-    pdfUrl: "/public/pdfs/1.pdf",
-    slug: null,
-    title: "ΑΠ 1234/2024 — Ζητήματα διαταγής πληρωμής & επίδοσης",
-    image: "/images/blog/4.jpg",
-    category: "rules",
-    content: [
-      "Σημεία-κλειδιά: νομιμότητα επίδοσης, ειδικοί λόγοι ανακοπής, τήρηση προθεσμιών.",
-      "Το πλήρες κείμενο είναι διαθέσιμο στο συνημμένο PDF."
-    ],
-    externalUrl: null
+    "pdfUrl": "/pdfs/1.pdf",
+    "slug": null,
+    "title": "Πιστοποιητικό Μέλους Δικηγορικού Συλλόγου Αθηνών — Γεώργιος-Στυλιανός Παναγάκος",
+    "image": "/images/blog/4.jpg",
+    "category": "rules",
+    "content": [],
+    "externalUrl": null
   }
+
+
 
 ];
 
