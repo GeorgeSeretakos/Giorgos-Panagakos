@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export const metadata = { robots: { index: false, follow: false } };
-
-export default function ThankYou() {
+export default function ThankYouClient() {
   const [locale, setLocale] = useState("el");
 
   useEffect(() => {
@@ -25,7 +23,6 @@ export default function ThankYou() {
           ? "Thank you for reaching out!"
           : "Ευχαριστούμε για την επικοινωνία σας!"}
       </h1>
-
       <Link
         href="/"
         className="text-sky-400 underline hover:text-sky-300 transition"
