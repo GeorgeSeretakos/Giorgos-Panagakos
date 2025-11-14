@@ -2,15 +2,41 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function BlogCard({ post }) {
+  const [locale, setLocale] = useState("el");
+
+  useEffect(() => {
+    const saved =
+      typeof window !== "undefined"
+        ? localStorage.getItem("locale") || "el"
+        : "el";
+    setLocale(saved);
+  }, []);
+
   if (!post) return null;
+
+  const isEn = locale === "en";
 
   const isPdf = !!post.pdfUrl;
   const isSlug = !!post.slug;
   const targetUrl = isPdf ? post.pdfUrl : isSlug ? `/blog/${post.slug}` : null;
 
-  const linkLabel = isPdf ? "Λήψη PDF ↓" : "Μάθετε περισσότερα →";
+  const linkLabel = isPdf
+    ? isEn
+      ? "Download PDF ↓"
+      : "Λήψη PDF ↓"
+    : isEn
+      ? "Learn more →"
+      : "Μάθετε περισσότερα →";
+
+  const fallbackAlt = isEn ? "Blog post image" : "Εικόνα άρθρου";
+
+  const displayTitle =
+    isEn && post.title_en ? post.title_en : post.title || "";
+
+  const altText = post.imageAlt || displayTitle || fallbackAlt;
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-72">
@@ -18,7 +44,7 @@ export default function BlogCard({ post }) {
         {post.image && (
           <img
             src={post.image}
-            alt={post.imageAlt || post.title || "Εικόνα άρθρου"}
+            alt={altText}
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         )}
@@ -26,12 +52,14 @@ export default function BlogCard({ post }) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-4">
-        <h4 className="text-gray-900 font-semibold mb-2">{post.title}</h4>
+        <h4 className="text-gray-900 font-semibold mb-2">
+          {displayTitle}
+        </h4>
 
         {targetUrl && (
           <Link
             href={targetUrl}
-            download={isPdf ? "" : undefined} // ✅ triggers file download
+            download={isPdf ? "" : undefined}
             target={isPdf ? "_blank" : "_self"}
             rel={isPdf ? "noopener noreferrer" : undefined}
             className="inline-block mt-auto text-[#1C86D1] font-medium hover:underline"

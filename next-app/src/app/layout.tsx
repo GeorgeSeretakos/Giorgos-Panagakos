@@ -1,4 +1,3 @@
-// app/layout.jsx (or layout.tsx)
 import "./styles/globals.css";
 import Navbar from "./components/Navbar";
 import { ReactNode } from "react";

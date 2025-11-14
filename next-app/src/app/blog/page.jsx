@@ -1,14 +1,31 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import posts from "../../../public/data/blog";
 import BlogCard from "../components/blog/BlogCard";
 
 export default function BlogPage() {
   const [category, setCategory] = useState("articles");
+  const [locale, setLocale] = useState("el");
+
+  useEffect(() => {
+    const saved =
+      typeof window !== "undefined"
+        ? localStorage.getItem("locale") || "el"
+        : "el";
+    setLocale(saved);
+  }, []);
+
+  const isEn = locale === "en";
 
   const tabs = [
-    { value: "articles", label: "Άρθρα" },
-    { value: "rules", label: "Δικαστικές Αποφάσεις" },
+    {
+      value: "articles",
+      label: isEn ? "Articles" : "Άρθρα",
+    },
+    {
+      value: "rules",
+      label: isEn ? "Court Documents & Certificates" : "Δικαστικές Αποφάσεις & Πιστοποιητικά",
+    },
   ];
 
   const filteredPosts = posts.filter((p) => p.category === category);

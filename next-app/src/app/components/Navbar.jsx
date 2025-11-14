@@ -7,12 +7,29 @@ import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [locale, setLocale] = useState("el"); // default Greek
   const pathname = usePathname();
+
+  // load saved language
+  useEffect(() => {
+    const saved = typeof window !== "undefined"
+      ? localStorage.getItem("locale") || "el"
+      : "el";
+    setLocale(saved);
+  }, []);
 
   // close mobile menu when navigating
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  const switchLang = (lang) => {
+    setLocale(lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("locale", lang);
+      window.location.reload();
+    }
+  };
 
   return (
     <nav className="bg-white text-black shadow right-0 z-50 fixed top-0 w-full">
@@ -24,18 +41,39 @@ export default function Navbar() {
               href="/"
               className="text-lg sm:text-xl lg:text-2xl font-semibold tracking-tight text-[var(--foreground)] hover:text-[var(--brand-accent)] transition"
             >
-              AGPA Law Office
+              {locale === "en" ? "AGPA Law Office" : "AGPA Law Office"}
             </Link>
           </div>
 
           {/* Desktop Links */}
           <div className="hidden sm:flex sm:space-x-4 lg:space-x-5 items-center font-semibold text-xs lg:text-sm">
-            <NavItem href="/" label="Αρχική" />
-            <NavItem href="/about" label="Δικηγόρος" />
-            <NavItem href="/services" label="Υπηρεσίες" />
-            <NavItem href="/office" label="Γραφείο" />
+            <NavItem href="/" label={locale === "en" ? "Home" : "Αρχική"} />
+            <NavItem href="/about" label={locale === "en" ? "Lawyer" : "Δικηγόρος"} />
+            <NavItem href="/services" label={locale === "en" ? "Services" : "Υπηρεσίες"} />
+            <NavItem href="/office" label={locale === "en" ? "Office" : "Γραφείο"} />
             <NavItem href="/blog" label="Blog" />
-            <NavItem href="/contact" label="Επικοινωνία" />
+            <NavItem href="/contact" label={locale === "en" ? "Contact" : "Επικοινωνία"} />
+          </div>
+
+          {/* Language toggle (desktop) */}
+          <div className="hidden sm:flex items-center gap-1 ml-2 text-xs">
+            <span
+              onClick={() => switchLang("el")}
+              className={`cursor-pointer font-medium ${
+                locale === "el" ? "text-black" : "text-gray-400"
+              }`}
+            >
+              EL
+            </span>
+            <span className="text-gray-400">|</span>
+            <span
+              onClick={() => switchLang("en")}
+              className={`cursor-pointer font-medium ${
+                locale === "en" ? "text-black" : "text-gray-400"
+              }`}
+            >
+              EN
+            </span>
           </div>
 
           {/* Mobile Menu Button */}
@@ -43,7 +81,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A4D8F]"
-              aria-label="Άνοιγμα μενού"
+              aria-label={locale === "en" ? "Open menu" : "Άνοιγμα μενού"}
               aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -56,12 +94,33 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="sm:hidden bg-white shadow-md border-t">
           <div className="flex flex-col space-y-2 px-4 py-4 font-medium">
-            <NavItem href="/" label="Αρχική" />
-            <NavItem href="/about" label="Δικηγόρος" />
-            <NavItem href="/services" label="Υπηρεσίες" />
-            <NavItem href="/office" label="Γραφείο" />
+            <NavItem href="/" label={locale === "en" ? "Home" : "Αρχική"} />
+            <NavItem href="/about" label={locale === "en" ? "Lawyer" : "Δικηγόρος"} />
+            <NavItem href="/services" label={locale === "en" ? "Services" : "Υπηρεσίες"} />
+            <NavItem href="/office" label={locale === "en" ? "Office" : "Γραφείο"} />
             <NavItem href="/blog" label="Blog" />
-            <NavItem href="/contact" label="Επικοινωνία" />
+            <NavItem href="/contact" label={locale === "en" ? "Contact" : "Επικοινωνία"} />
+          </div>
+
+          {/* Mobile language toggle */}
+          <div className="flex justify-end gap-1 px-4 py-2 text-xs">
+            <span
+              onClick={() => switchLang("el")}
+              className={`cursor-pointer font-medium ${
+                locale === "el" ? "text-black" : "text-gray-400"
+              }`}
+            >
+              EL
+            </span>
+            <span className="text-gray-400">|</span>
+            <span
+              onClick={() => switchLang("en")}
+              className={`cursor-pointer font-medium ${
+                locale === "en" ? "text-black" : "text-gray-400"
+              }`}
+            >
+              EN
+            </span>
           </div>
         </div>
       )}
