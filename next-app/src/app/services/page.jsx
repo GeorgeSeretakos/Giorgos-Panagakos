@@ -195,14 +195,15 @@ export default function ServicesPage() {
         description={
           isEn
             ? [
-              "Our firm undertakes cases covering the entire spectrum of Civil Law, either with a view to achieving an out-of-court settlement or to securing judicial protection for our clients, before all levels of jurisdiction and in all relevant procedures.",
+              "Our firm specializes in pursuing and processing lawful civil claims, which may consist either of providing monetary compensation or restoring positive or consequential damage. For natural persons, this includes preventing loss of income that under normal circumstances would have increased the value of their assets, while for legal entities it includes restoring profitability that was affected by an unforeseen event that the representative of the business entity did not anticipate. We also undertake the restoration of violations of an individual’s personality rights and the protection of a company’s trade name through the exercise of appropriate legal remedies or actions before all levels of jurisdiction, including the Supreme Court.",
             ]
             : [
-              "Το γραφείο μας αναλαμβάνει υποθέσεις που καλύπτουν το Αστικό Δίκαιο σε ολόκληρο το φάσμα του, είτε προς επίτευξη εξωδίκου συμβιβασμού είτε για την δικαστική προστασία των πελατών μας, σε όλους τους βαθμούς δικαιοδοσίας και σε όλες τις διαδικασίες",
+              "Το γραφείο μας ειδικεύεται στην διεκδίκηση και στην διεκπεραίωση νόμιμων αστικών αξιώσεων που συνίσταται είτε σε παροχή χρηματικής αποζημίωσης, είτε σε αποκατάσταση της θετικής ή αποθετικής ζημίας, στο οποίο για ένα φυσικό πρόσωπο είναι η αποφυγή της μείωσης του εισοδήματος του που υπό κανονικές συνθήκες θα είχε αυξηθεί το ενεργητικό της περιουσιακής του κατάστασης είτε στην αποκατάσταση της κερδοφορίας ενός νομικού προσώπου λόγω εκδήλωσης ενός εκτάκτου γεγονότος που ο εκπρόσωπος της εκάστοτε επιχειρηματικής οντότητας δεν προέβλεψε καθώς και στην αποκατάσταση της προσβολής του δικαιώματος της προσωπικότητας ενός ατόμου και στην προστασία της επωνυμίας μίας εταιρείας μέσω της άσκησης των κατάλληλων ενδίκων βοηθημάτων ή ενδίκων μέσων σε όλους τους βαθμούς δικαιοδοσίας, ακόμη και στον Άρειο Πάγο.",
             ]
         }
         ticks={[]}
       />
+
 
       {/* ---------- ΠΟΙΝΙΚΟ ΔΙΚΑΙΟ / CRIMINAL LAW ---------- */}
       <AboutSection
@@ -213,14 +214,15 @@ export default function ServicesPage() {
         description={
           isEn
             ? [
-              "We handle criminal law cases with absolute confidentiality and full commitment to our clients’ interests, whether they are defendants or civil claimants.",
+              "Our firm has extensive experience in supporting the procedural position of individuals during the stages of preliminary examination, pre-investigation, and formal investigation. We ensure that their rights are fully protected from any violation by police or investigative authorities, and when appearing before a court, we provide comprehensive representation to secure favorable treatment aimed at acquittal of all charges, or alternatively, recognition of the appropriate mitigating factors. Our goal is to reduce the impact on the client’s personal and financial situation and to pursue exemption from any penalty before all levels of jurisdiction, including the Supreme Court.",
             ]
             : [
-              "Αναλαμβάνουμε υποθέσεις σχετικές με το Ποινικό Δίκαιο, με απόλυτη εχεμύθεια και προσήλωση στα συμφέροντα των πελατών μας, είτε ως κατηγορουμένων είτε ως πολιτικώς εναγόντων.",
+              "Το γραφείο μας διαθέτει εμπειρία στην υποστήριξη της δικονομικής θέσης ενός φυσικού προσώπου στο στάδιο της προκαταρκτικής εξέτασης, της προανάκρισης και της ανάκρισης και διασφαλίζει τα δικαιώματα του ότι δεν θα παραβιαστούν από τις αστυνομικές άλλως ανακριτικές αρχές και εφόσον κληθεί ενώπιον ενός δικαστηρίου εκπροσωπείται εις το έπακρο ώστε να τύχει ευνοϊκής μεταχείρισης προκειμένου να απαλλαγεί των οποιονδήποτε κατηγοριών άλλως θα αναγνωριστούν τα απαιτούμενα ελαφρυντικά που αρμόζουν σε κάθε περίπτωση ώστε να ελαφρυνθεί η παρούσα προσωπική και περιουσιακή του κατάσταση και να διεκδικηθεί η απαλλαγή του από την επιβολή οποιασδήποτε ποινής σε κάθε βαθμό δικαιοδοσίας ακόμη και στον Άρειο Πάγο.",
             ]
         }
         ticks={[]}
       />
+
     </>
   );
 }

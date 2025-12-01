@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 export default function Footer() {
   const [locale, setLocale] = useState("el");
 
-  // load saved language
   useEffect(() => {
     const saved =
       typeof window !== "undefined"
@@ -24,17 +23,21 @@ export default function Footer() {
             {/* CONTACT LOCATIONS */}
             <div className="text-sm sm:text-base flex flex-col justify-center">
 
-              {/* 1) Περιστέρι */}
+              {/* 1) Περιστέρι — ΚΕΝΤΡΙΚΟ */}
               <div className="mb-8">
                 <h2 className="text-lg font-semibold mb-2">
                   {locale === "en"
-                    ? "Peristeri Offices (Attica)"
-                    : "Γραφεία Περιστερίου Αττικής"}
+                    ? "Main Offices – Peristeri (Attica)"
+                    : "Κεντρικά Γραφεία – Περιστέρι Αττικής"}
                 </h2>
                 <p className="leading-relaxed">
                   {locale === "en"
                     ? "Pavlou Mela 45-47, inside shopping center"
-                    : "Παύλου Μελά 45-47, Εντός εμπορικού κέντρου"}
+                    : "Παύλου Μελά 45-47, εντός εμπορικού κέντρου"}
+                  <br />
+                  {locale === "en"
+                    ? "Located next to the Athens Court of First Instance – Peristeri Regional Division."
+                    : "Δίπλα στο Μονομελές Πρωτοδικείο Αθηνών – Περιφερειακή Έδρα Περιστερίου."}
                   <br />
                   <a
                     href="mailto:gsa.panagakos.law@gmail.com"
@@ -59,19 +62,25 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* 2) Πειραιάς */}
+              {/* 2) Πειραιάς — ΥΠΟΚΑΤΑΣΤΗΜΑ */}
               <div className="mb-8">
                 <h2 className="text-lg font-semibold mb-2">
-                  {locale === "en" ? "Piraeus Offices" : "Γραφεία Πειραιά"}
+                  {locale === "en"
+                    ? "Branch Office – Piraeus"
+                    : "Υποκατάστημα – Πειραιάς"}
                 </h2>
                 <p className="leading-relaxed">
                   {locale === "en"
                     ? "Alkiviadou 110–112, 1st floor (300m from Dimotiko Theatro station)"
-                    : "Αλκιβιάδου 110-112, 18 532 1ος όροφος (300μ - σταθμό Δημ. Θέατρο)"}
+                    : "Αλκιβιάδου 110-112, 1ος όροφος (300μ από τον σταθμό Δημ. Θέατρο)"}
                   <br />
                   {locale === "en"
-                    ? 'Co-located with the notary office "Maria-Ioanna Kardasaki"'
-                    : 'Συστεγαζόμενο με συμβολ. γραφείο «Μαρία-Ιωάννα Καρδασάκη»'}
+                    ? "In very close proximity to the Administrative Court of Piraeus (Pylis 17–19) and the Administrative Court of Appeals of Piraeus (Kolokotroni 55), located almost midway between the two courts."
+                    : "Σε πολύ κοντινή απόσταση με το Διοικητικό Πρωτοδικείο Πειραιά (Πύλης 17–19) και το Διοικητικό Εφετείο Πειραιά (Κολοκοτρώνη 55), σχεδόν στη μέση των δύο διοικητικών δικαστηρίων του Δήμου Πειραιά."}
+                  <br />
+                  {locale === "en"
+                    ? 'Co-located with the notary office "Maria-Ioanna Kardasaki".'
+                    : 'Συστεγαζόμενο με το συμβολαιογραφικό γραφείο «Μαρία-Ιωάννα Καρδασάκη».'}
                   <br />
                   <a
                     href="mailto:kardasakigram@gmail.com"
@@ -89,12 +98,12 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* 3) Κεντρικά Αθήνα */}
+              {/* 3) Σωκράτους — ΥΠΟΚΑΤΑΣΤΗΜΑ */}
               <div>
                 <h2 className="text-lg font-semibold mb-2">
                   {locale === "en"
-                    ? "Head Offices (Athens)"
-                    : "Κεντρικά Γραφεία (Αθήνα)"}
+                    ? "Branch Office – Athens (Omonoia)"
+                    : "Υποκατάστημα – Αθήνα (Ομόνοια)"}
                 </h2>
                 <p className="leading-relaxed">
                   {locale === "en"
@@ -125,7 +134,6 @@ export default function Footer() {
               >
                 <input type="hidden" name="form-name" value="contact" />
 
-                {/* Honeypot */}
                 <p hidden>
                   <label>
                     {locale === "en" ? "Do not fill this:" : "Μην το συμπληρώσετε:"}{" "}
