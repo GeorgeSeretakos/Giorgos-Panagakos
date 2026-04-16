@@ -1,6 +1,29 @@
 import { NextResponse } from "next/server";
 import { sendContactMail } from "../../lib/sendContactMail";
 
+/**
+ * Build an absolute URL for redirects behind reverse proxies (e.g. Netlify).
+ * Avoids `new URL(path, request.url)` which can produce `https://host:80/...`
+ * when the upstream URL uses port 80 — that breaks TLS (ERR_SSL_PROTOCOL_ERROR).
+ */
+function publicRedirectUrl(request, pathname) {
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const hostHeader = request.headers.get("host") ?? "";
+
+  if (forwardedProto || forwardedHost) {
+    const proto = forwardedProto || "https";
+    const host = (forwardedHost || hostHeader)
+      .replace(/:80$/, "")
+      .replace(/:443$/, "");
+    if (host) {
+      return new URL(pathname, `${proto}://${host}`).href;
+    }
+  }
+
+  return new URL(pathname, request.nextUrl.origin).href;
+}
+
 export async function POST(request) {
   let formData;
   try {
@@ -34,5 +57,5 @@ export async function POST(request) {
   }
 
   const thankYou = locale === "en" ? "/en/thank-you" : "/el/thank-you";
-  return NextResponse.redirect(new URL(thankYou, request.url), 303);
+  return NextResponse.redirect(publicRedirectUrl(request, thankYou), 303);
 }
