@@ -18,13 +18,13 @@ export async function sendContactMail({
     replyTo: email,
     subject: "Website: Αίτημα Επικοινωνίας / Contact Request",
     html: `
-      <h2>Νέο Αίτημα Επικοινωνίας / New Contact Request</h2>
-      <p><strong>Όνομα / First Name:</strong> ${firstName || ""}</p>
-      <p><strong>Επώνυμο / Last Name:</strong> ${lastName || ""}</p>
+      <h2>Νέο Αίτημα Επικοινωνίας</h2>
+      <p><strong>Όνομα:</strong> ${firstName || ""}</p>
+      <p><strong>Επώνυμο:</strong> ${lastName || ""}</p>
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Τηλέφωνο / Phone:</strong> ${phone}</p>
+      <p><strong>Τηλέφωνο:</strong> ${phone}</p>
       <hr />
-      <p><strong>Μήνυμα / Message:</strong></p>
+      <p><strong>Μήνυμα:</strong></p>
       <p>${String(message || "").replace(/\n/g, "<br />")}</p>
     `,
   });
