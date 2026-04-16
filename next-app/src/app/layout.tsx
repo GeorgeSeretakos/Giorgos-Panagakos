@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Footer from "@components/Footer";
 import { Roboto_Condensed } from "next/font/google";
 import type { Metadata } from "next";
-import { getSiteUrl } from "./lib/siteUrl";
 
 const robotoCondensed = Roboto_Condensed({
     subsets: ["latin", "greek"],
@@ -12,15 +11,10 @@ const robotoCondensed = Roboto_Condensed({
     weight: ["300", "400", "700"],
 });
 
-const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 export const metadata: Metadata = {
-    metadataBase: new URL(getSiteUrl()),
     title: "AGPA LAW OFFICE",
     description: "Δικηγορικό Γραφείο Αγγελόπουλος - Παναγάκος",
-    ...(googleVerification
-        ? { verification: { google: googleVerification } }
-        : {}),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
