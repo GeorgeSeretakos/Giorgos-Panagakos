@@ -1,18 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { localizePath, useLocale } from "../lib/locale";
 
 export default function FeatureGrid({ items = [], preview = false }) {
-  const [locale, setLocale] = useState("el");
-
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined"
-        ? localStorage.getItem("locale") || "el"
-        : "el";
-    setLocale(saved);
-  }, []);
+  const locale = useLocale();
 
   const isEn = locale === "en";
 
@@ -27,7 +19,7 @@ export default function FeatureGrid({ items = [], preview = false }) {
         text: isEn
           ? "Browse the services page for a complete overview of each legal field."
           : "Περιηγηθείτε στη σελίδα υπηρεσιών για πλήρη ενημέρωση ανά τομέα δικαίου.",
-        href: "/services",
+        href: localizePath("/services", locale),
         icon: "/icons/more.png",
       },
     ]

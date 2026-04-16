@@ -1,17 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { localizePath, useLocale } from "../lib/locale";
+import { sendContactForm } from "../actions/sendContactForm";
 
 export default function Footer() {
-  const [locale, setLocale] = useState("el");
-
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined"
-        ? localStorage.getItem("locale") || "el"
-        : "el";
-    setLocale(saved);
-  }, []);
+  const locale = useLocale();
 
   return (
     <main className="flex flex-col min-h-screen">
@@ -125,21 +118,10 @@ export default function Footer() {
               </p>
 
               <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                action="/thank-you"
+                action={sendContactForm}
                 className="space-y-4"
               >
-                <input type="hidden" name="form-name" value="contact" />
-
-                <p hidden>
-                  <label>
-                    {locale === "en" ? "Do not fill this:" : "Μην το συμπληρώσετε:"}{" "}
-                    <input name="bot-field" />
-                  </label>
-                </p>
+                <input type="hidden" name="locale" value={locale} />
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <input
@@ -191,7 +173,7 @@ export default function Footer() {
                     />
                     {locale === "en" ? "I accept the" : "Αποδέχομαι την"}{" "}
                     <a
-                      href="/privacy-policy"
+                      href={localizePath("/privacy-policy", locale)}
                       className="underline underline-offset-2 hover:opacity-90"
                     >
                       {locale === "en"
@@ -223,7 +205,7 @@ export default function Footer() {
           </p>
           <span className="hidden md:inline mx-2">·</span>
           <a
-            href="/privacy-policy"
+            href={localizePath("/privacy-policy", locale)}
             className="underline underline-offset-2 hover:opacity-90"
           >
             {locale === "en" ? "Privacy Policy" : "Πολιτική Απορρήτου"}

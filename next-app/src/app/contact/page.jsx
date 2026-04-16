@@ -1,6 +1,5 @@
-export default function Contact() {
-  return (
-    <>
-    </>
-  );
+import ContactPage from "../_pages/ContactPage";
+
+export default function RootContactPage() {
+  return <ContactPage />;
 }

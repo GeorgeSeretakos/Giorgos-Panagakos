@@ -2,18 +2,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { localizePath, useLocale } from "../../lib/locale";
 
 export default function BlogCard({ post }) {
-  const [locale, setLocale] = useState("el");
-
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined"
-        ? localStorage.getItem("locale") || "el"
-        : "el";
-    setLocale(saved);
-  }, []);
+  const locale = useLocale();
 
   if (!post) return null;
 
@@ -21,7 +13,11 @@ export default function BlogCard({ post }) {
 
   const isPdf = !!post.pdfUrl;
   const isSlug = !!post.slug;
-  const targetUrl = isPdf ? post.pdfUrl : isSlug ? `/blog/${post.slug}` : null;
+  const targetUrl = isPdf
+    ? post.pdfUrl
+    : isSlug
+      ? localizePath(`/blog/${post.slug}`, locale)
+      : null;
 
   const linkLabel = isPdf
     ? isEn
