@@ -1,7 +1,6 @@
 "use client";
 
 import { localizePath, useLocale } from "../lib/locale";
-import { sendContactForm } from "../actions/sendContactForm";
 
 export default function Footer() {
   const locale = useLocale();
@@ -118,7 +117,8 @@ export default function Footer() {
               </p>
 
               <form
-                action={sendContactForm}
+                action="/api/contact"
+                method="POST"
                 className="space-y-4"
               >
                 <input type="hidden" name="locale" value={locale} />
