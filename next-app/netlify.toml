@@ -2,5 +2,9 @@
 command = "npm run build"
 publish = ".next"
 
+# Next.js 15+ requires AsyncLocalStorage#snapshot (Node >= 20.12). Older defaults cause "snapshot is not a function" at runtime.
+[build.environment]
+  NODE_VERSION = "22"
+
 [[plugins]]
 package = "@netlify/plugin-nextjs"
