@@ -136,7 +136,7 @@ export default function AboutPage() {
           role: "Μεταπτυχιακό Δίπλωμα Ειδίκευσης",
           org:
             "Τμήμα Κοινωνικής και Εκπαιδευτικής Πολιτικής, Πανεπιστήμιο Πελοποννήσου",
-          dates: "2000 – 2001",
+          dates: "2013 – 2016",
           bullets: [
             "Εκπόνηση Μεταπτυχιακής Διπλωματικής Διατριβής με θέμα: «Το ιατρικό λάθος στην παθητική ευθανασία των ανηλίκων και ενηλίκων ασθενών».",
             "Δημοσιευμένη στο διαδίκτυο — URL: http://195.251.38.253:8080/xmlui/handle/123456789/2769",
@@ -146,14 +146,14 @@ export default function AboutPage() {
         {
           role: "Πτυχίο Τμήματος Νομικής",
           org: "Δημοκρίτειο Πανεπιστήμιο Θράκης",
-          dates: "10/2013 – 12/2016",
+          dates: "2007 – 2012",
           bullets: [],
         },
         {
           role:
             "Πτυχίο Τμήματος Πολιτικής Επιστήμης και Δημόσιας Διοίκησης",
           org: "Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών",
-          dates: "10/1999 – 09/2005",
+          dates: "1999 – 2005",
           bullets: [],
         },
       ],
@@ -306,7 +306,7 @@ export default function AboutPage() {
           role:
             "Master of Arts, Department of Social and Educational Policy",
           org: "University of Peloponnisos",
-          dates: "10/2013 – 12/2016",
+          dates: "2013 – 2016",
           bullets: [
             'Paper topic: "The medical error in passive euthanasia of minor and adult patients"',
             "URL: http://195.251.38.253:8080/xmlui/handle/123456789/2769",
@@ -316,13 +316,13 @@ export default function AboutPage() {
         {
           role: "Law School, Undergraduate Program",
           org: "Democritus University of Thrace (DUTH)",
-          dates: "10/2007 – 07/2012",
+          dates: "2007 – 2012",
           bullets: [],
         },
         {
           role: "Bachelor in Political Science and Public Administration",
           org: "National and Kapodistrian University of Athens (EKPA)",
-          dates: "10/1999 – 09/2005",
+          dates: "1999 – 2005",
           bullets: [],
         },
       ],
@@ -476,31 +476,16 @@ export default function AboutPage() {
             ? [
               "My name is <strong>Theodoros S. Aggelopoulos</strong> and I am an attorney with extensive experience in <em>Civil</em>, <em>Commercial</em> and <em>Banking Law</em>, with particular specialization in the management of <em>Non-Performing Loans (NPLs)</em>. Since 2011, I have been actively practicing litigation, providing reliable legal guidance, court representation and comprehensive solutions to individuals, businesses and financial institutions.",
               "Since 2023, I serve as <strong>Head of Legal Department</strong> at a major servicer, while also collaborating with the <strong>National Bank of Greece</strong> in enforcement matters. My long-standing involvement in NPLs has led to advanced expertise in <em>enforcement proceedings</em>, <em>auctions</em>, <em>seizures</em> and complex judicial disputes.",
-              "As founder of <strong>Angelopoulos & Partners Law Office</strong>, I provide a full range of legal services focused on practical, well-documented and client-oriented solutions, with consistency, transparency and continuous communication at every stage.",
+              "As the owner of <strong>Angelopoulos & Partners Law Office</strong>, I offer a comprehensive range of legal services covering:",
+              `<ul class="list-disc pl-6 space-y-2 my-1 text-[#2F3E46]"><li>Civil, Commercial & Banking Law</li><li>Family and Cadastral Law</li><li>Contract Law and Agreements</li><li>Court Representation and Legal Advisory</li><li>Negotiation, drafting and amendment of contracts</li></ul>`,
+              "My central goal is to provide reliable, practical and fully substantiated legal solutions, with consistency, transparency and respect for each client's needs. I believe in continuous communication, a methodical approach and building relationships of trust, which are the foundation for effective legal cooperation.",
             ]
             : [
               "Ονομάζομαι <strong>Θοδωρής Σ. Αγγελόπουλος</strong> και είμαι δικηγόρος με πολυετή εμπειρία στο <em>Αστικό</em>, <em>Εμπορικό</em> και <em>Τραπεζικό Δίκαιο</em>, με εξειδίκευση στη διαχείριση <em>NPLs (Non-Performing Loans)</em>. Από το 2011 ασκώ ενεργά μάχιμη δικηγορία, παρέχοντας έγκυρη νομική καθοδήγηση, δικαστική εκπροσώπηση και ολοκληρωμένες λύσεις σε ιδιώτες, επιχειρήσεις και χρηματοπιστωτικούς οργανισμούς.",
               "Από το 2023 κατέχω τη θέση του <strong>Διευθυντή Νομικού Τμήματος</strong> σε μεγάλο servicer, ενώ παράλληλα συνεργάζομαι με την <strong>Εθνική Τράπεζα της Ελλάδος</strong>, αναλαμβάνοντας υποθέσεις αναγκαστικής εκτέλεσης. Η πολυετής ενασχόλησή μου με τα NPLs μου έχει προσφέρει ιδιαίτερη εξειδίκευση σε ζητήματα <em>αναγκαστικής εκτέλεσης</em>, <em>πλειστηριασμών</em>, <em>κατασχέσεων</em> και σύνθετων δικαστικών διενέξεων.",
-              "Ως ιδιοκτήτης του <strong>Angelopoulos & Partners Law Office</strong>, παρέχω ένα ολοκληρωμένο φάσμα νομικών υπηρεσιών με έμφαση σε αξιόπιστες, πρακτικές και τεκμηριωμένες λύσεις, με συνέπεια, διαφάνεια και συνεχή επικοινωνία με κάθε πελάτη.",
-            ]
-        }
-        ticks={
-          isEn
-            ? [
-              "Civil, Commercial & Banking Law",
-              "Specialization in NPL management",
-              "Enforcement proceedings, auctions & seizures",
-              "Head of Legal Department in major servicer (since 2023)",
-              "Collaboration with National Bank of Greece",
-              "Litigation, legal advisory and contract practice",
-            ]
-            : [
-              "Αστικό, Εμπορικό & Τραπεζικό Δίκαιο",
-              "Εξειδίκευση στη διαχείριση NPLs",
-              "Αναγκαστική εκτέλεση, πλειστηριασμοί & κατασχέσεις",
-              "Διευθυντής Νομικού Τμήματος σε μεγάλο servicer (από το 2023)",
-              "Συνεργασία με την Εθνική Τράπεζα της Ελλάδος",
-              "Δικαστηριακή εκπροσώπηση, συμβουλευτική και συμβάσεις",
+              "Ως ιδιοκτήτης του <strong>Angelopoulos & Partners Law Office</strong>, προσφέρω ένα ολοκληρωμένο φάσμα νομικών υπηρεσιών που καλύπτουν:",
+              `<ul class="list-disc pl-6 space-y-2 my-1 text-[#2F3E46]"><li>Αστικό, Εμπορικό & Τραπεζικό Δίκαιο</li><li>Οικογενειακό και Κτηματολογικό Δίκαιο</li><li>Ενοχικό Δίκαιο και Συμβάσεις</li><li>Δικαστική Εκπροσώπηση και Νομική Συμβουλευτική</li><li>Διαπραγμάτευση, σύνταξη και τροποποίηση συμβάσεων</li></ul>`,
+              "Κεντρικός μου στόχος είναι η παροχή αξιόπιστων, πρακτικών και απολύτως τεκμηριωμένων νομικών λύσεων, με συνέπεια, διαφάνεια και σεβασμό στις ανάγκες κάθε πελάτη. Πιστεύω στη συνεχή επικοινωνία, στη μεθοδική προσέγγιση και στη δημιουργία σχέσεων εμπιστοσύνης, στοιχεία που αποτελούν θεμέλιο για μία αποτελεσματική νομική συνεργασία.",
             ]
         }
       />

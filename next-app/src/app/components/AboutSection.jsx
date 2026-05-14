@@ -57,7 +57,7 @@ export default function AboutSection({
           {/* Description */}
           <div className="leading-relaxed space-y-4 text-[#2F3E46]">
             {description.map((item, i) => (
-              <p key={i} dangerouslySetInnerHTML={{ __html: item }} />
+              <div key={i} dangerouslySetInnerHTML={{ __html: item }} />
             ))}
           </div>
 

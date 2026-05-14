@@ -11,10 +11,7 @@ export async function sendContactMail({
 }) {
   return resend.emails.send({
     from: "AGPA Law Office Website <no-reply@agpa-law-firm.gr>",
-    to: [
-      "gsa.panagakos.law@gmail.com",
-      // "g.seretakos@gmail.com",
-    ],
+    to: ["gsa.panagakos.law@gmail.com",],
     replyTo: email,
     subject: "Website: Αίτημα Επικοινωνίας / Contact Request",
     html: `
